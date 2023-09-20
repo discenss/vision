@@ -1,0 +1,35 @@
+<annotation>
+    <folder>img</folder>
+    <filename>vlcsnap-2023-06-28-21h18m55s447.jpg</filename>
+    <size>
+        <width>1280</width>
+        <height>720</height>
+        <depth>3</depth>
+    </size>
+    <object>
+        <name>person</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>694.457825</xmin>
+            <ymin>383.468048</ymin>
+            <xmax>818.360962</xmax>
+            <ymax>501.304138</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>barcounter</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>230.820312</xmin>
+            <ymin>301.581940</ymin>
+            <xmax>1128.118774</xmax>
+            <ymax>454.369446</ymax>
+        </bndbox>
+    </object>
+</annotation>

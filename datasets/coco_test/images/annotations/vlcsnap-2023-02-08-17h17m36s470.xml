@@ -1,0 +1,35 @@
+<annotation>
+    <folder>img</folder>
+    <filename>vlcsnap-2023-02-08-17h17m36s470.jpg</filename>
+    <size>
+        <width>1920</width>
+        <height>1080</height>
+        <depth>3</depth>
+    </size>
+    <object>
+        <name>coffee</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1104.426025</xmin>
+            <ymin>421.609802</ymin>
+            <xmax>1139.407471</xmax>
+            <ymax>459.574432</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>barcounter</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>484.747223</xmin>
+            <ymin>410.620209</ymin>
+            <xmax>1650.140503</xmax>
+            <ymax>639.408142</ymax>
+        </bndbox>
+    </object>
+</annotation>

@@ -1,0 +1,35 @@
+<annotation>
+    <folder>img</folder>
+    <filename>vlcsnap-2023-06-30-15h25m35s199.jpg</filename>
+    <size>
+        <width>1920</width>
+        <height>1080</height>
+        <depth>3</depth>
+    </size>
+    <object>
+        <name>barcounter</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>352.816681</xmin>
+            <ymin>430.601807</ymin>
+            <xmax>1666.132202</xmax>
+            <ymax>670.379639</ymax>
+        </bndbox>
+    </object>
+    <object>
+        <name>openedcash</name>
+        <pose>Unspecified</pose>
+        <truncated>0</truncated>
+        <occluded>0</occluded>
+        <difficult>0</difficult>
+        <bndbox>
+            <xmin>1148.402100</xmin>
+            <ymin>488.548126</ymin>
+            <xmax>1305.320312</xmax>
+            <ymax>667.382446</ymax>
+        </bndbox>
+    </object>
+</annotation>
