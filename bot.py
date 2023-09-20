@@ -4,6 +4,13 @@ from datetime import datetime
 from db import DB
 from telebot.types import LabeledPrice, ShippingOption
 
+# 6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM
+
+payment_token = "1711243933:LIVE:7T64-2KCi-TyH3-kcN7"
+PRODUCT_COST = 500  # Example cost in the smallest units (e.g., cents for USD)
+SHIPPING_COST = 5  # Example shipping cost
+
+bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 
 
 report_for_date = 'Введите дату в формате ГГГГ-ММ-ДД (например 1991-08-24)'
