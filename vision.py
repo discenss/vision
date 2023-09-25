@@ -1,6 +1,5 @@
 
 import sys
-import fdb
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QTableWidget, QTableWidgetItem, QWidget, QDateEdit, QHBoxLayout, QFileDialog,
                              QVBoxLayout, QPushButton, QInputDialog, QTabWidget, QDialog, QMenu, QLineEdit, QLabel, QMessageBox, QComboBox)
 from PyQt5.QtCore import Qt
@@ -10,9 +9,9 @@ import telebot
 bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 
 # Глобальные настройки подключения к базе данных
-DB_PATH = r'10.100.94.60:C:\Users\oleg.kalinin\Documents\VISION.FDB'
-DB_USER = 'SYSDBA'
-DB_PASS = 'root'
+#DB_PATH = r'10.100.94.60:C:\Users\oleg.kalinin\Documents\VISION.FDB'
+#DB_USER = 'SYSDBA'
+#DB_PASS = 'root'
 
 
 class ReportsTableWidget(QWidget):
@@ -108,7 +107,7 @@ class ReportsTableWidget(QWidget):
 
     def refresh_table(self):
         db = DB()
-        db.cur.execute("""SELECT r.REPORT_ID, e.NAME, r.REALDATE, r.BASEINFO, r.BASE_DONE, r.FULL_DONE
+        db.cur.execute("""SELECT r.REPORT_ID, e."NAME", r.REALDATE, r.BASEINFO, r.BASE_DONE, r.FULL_DONE
          FROM REPORT r
          JOIN ESTABLISHMENTS e ON e.ESTABLISHMENTS_ID = r.ESTABLISHMENT_ID""")
         rows = db.cur.fetchall()
@@ -250,8 +249,8 @@ class EstablishmentsTableWidget(QTableWidget):
 
     def refresh_table(self):
         db = DB()
-        db.cur.execute("""SELECT e.ESTABLISHMENTS_ID, e.NAME, e.ADDRESS, e.PASS,
-                                e.LICENSE_ID, u.NAME, e.REPORT_TYPE, e.VIDEO_PATH, 
+        db.cur.execute("""SELECT e.ESTABLISHMENTS_ID, e."NAME", e.ADDRESS, e.PASS,
+                                e.LICENSE_ID, u."NAME", e.REPORT_TYPE, e.VIDEO_PATH, 
                                 e.DATELICENSE_EXPIRE 
                            FROM ESTABLISHMENTS e 
                            JOIN USERS u ON e.OWNER_ID = u.USER_ID""")
