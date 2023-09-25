@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-import fdb
+#import fdb
+import psycopg2
+from psycopg2 import OperationalError
 from datetime import datetime
 from utils.general import LOGGER
 
@@ -11,12 +13,27 @@ def is_valid_date_format(s):
         return False
 class DB():
     def __init__(self):
-        con = fdb.connect(
-            dsn=r'localhost:C:\Users\oleg.kalinin\Documents\VISION.FDB',
-            user='SYSDBA',
-            password='root',
-            charset='UTF8'
-        )
+        #con = fdb.connect(
+        #    dsn=r'localhost:C:\Users\oleg.kalinin\Documents\VISION.FDB',
+        #    user='SYSDBA',
+        #    password='root',
+        #    charset='UTF8'
+        #)
+
+        try:
+            con = psycopg2.connect(
+                user="postgres",
+                password="root",
+                host="10.100.94.60",
+                port="5432",
+                database="postgres",
+                client_encoding='utf8'
+            )
+            self.con = con
+        except OperationalError as e:
+            print(f"The error '{e}' occurred")
+            return None
+
         if con == None:
             raise ValueError("Connection is failed")
 
@@ -24,7 +41,7 @@ class DB():
         self.cur = con.cursor()
 
     def get_user_id_by_login(self, login):
-        self.cur.execute(f"SELECT * FROM USERS WHERE LOGIN = '{login}'")
+        self.cur.execute(f"SELECT * FROM users WHERE login = '{login}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             id, name, login, role, password, count, telegram_id = rows[0]
@@ -33,7 +50,7 @@ class DB():
             return None
 
     def get_user_name_by_id(self, name):
-        self.cur.execute(f"SELECT USER_ID FROM USERS WHERE NAME = '{name}'")
+        self.cur.execute(f"SELECT user_id FROM users WHERE \"NAME\" = '{name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             return str(rows[0][0])
@@ -41,7 +58,7 @@ class DB():
             return None
 
     def get_report_type(self, name):
-        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE NAME = '{name}'")
+        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
@@ -50,7 +67,7 @@ class DB():
             return None
 
     def get_id_est_by_name(self, name):
-        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE NAME = '{name}'")
+        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
@@ -74,7 +91,7 @@ class DB():
                     str(datetime.now())[:-7] + f' Added report for {est_name} and date {realdate}')
 
     def get_est_info_by_name(self, est_name):
-        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE NAME = '{est_name}'")
+        self.cur.execute(f'SELECT * FROM establishments WHERE "NAME" = \'{est_name}\'')
         rows = self.cur.fetchall()
         if len(rows) == 1:
             id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
@@ -89,7 +106,7 @@ class DB():
             return None
 
     def subscribe_user_to_est(self, telegram_id, est_name, pass_est):
-        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE NAME = '{est_name}'")
+        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{est_name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             est_id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
@@ -134,7 +151,7 @@ class DB():
         return "success"
 
     def get_users_list_for_est(self, est_name ):
-        self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE NAME = '{est_name}'")
+        self.cur.execute(f"SELECT * FROM establishments WHERE \"NAME\" = '{est_name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
@@ -150,7 +167,7 @@ class DB():
         return users
 
     def get_telegram_id(self, user_id):
-        self.cur.execute(f"SELECT * FROM USERS WHERE USER_ID = '{user_id}'")
+        self.cur.execute(f"SELECT * FROM users WHERE user_id = '{user_id}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             id, name, login, role_id, passw, money, tg_id = rows[0]
@@ -160,7 +177,7 @@ class DB():
 
     def get_license_list(self):
         lic = []
-        self.cur.execute(f"SELECT * FROM LICENSE")
+        self.cur.execute(f"SELECT * FROM license")
         rows = self.cur.fetchall()
         for r in rows:
             id, name, adress, passw, license_id, owner_id = r
@@ -180,8 +197,8 @@ class DB():
 
     def get_curent_servers_tasks_count(self, id):
         self.cur = self.con.cursor()
-        count = self.cur.execute(f"SELECT COUNT(*) FROM TASKS WHERE SERVER_ID = {id} AND END_TIME IS NULL")
-        return count.fetchall()[0][0]
+        self.cur.execute(f"SELECT COUNT(*) FROM TASKS WHERE SERVER_ID = {id} AND END_TIME IS NULL")
+        return self.cur.fetchall()[0][0]
 
     def get_server_for_task(self, id_not_res = []):
         self.cur = self.con.cursor()
@@ -233,38 +250,40 @@ class DB():
         count = 0
         try:
             self.cur = self.con.cursor()
-            user = self.cur.execute(f"SELECT USER_ID FROM USERS WHERE TELEGRAM_ID = {id}")
-            user = user.fetchall()
+            self.cur.execute(f"SELECT USER_ID FROM USERS WHERE TELEGRAM_ID = {id}")
+            user = self.cur.fetchall()
             if len(user) == 0:
                 return False
             user_id = user[0][0]
             self.cur = self.con.cursor()
 
 
-            count = self.cur.execute(f"SELECT MONEY FROM USERS WHERE USER_ID = {user_id}")
+            self.cur.execute(f"SELECT MONEY FROM USERS WHERE USER_ID = {user_id}")
 
-            count = count.fetchall()[0][0]
+            count = self.cur.fetchall()[0][0]
         except:
             pass
         return count
 
     def addmomey_for_tg_user(self, id, money):
         self.cur = self.con.cursor()
-        user = self.cur.execute(f"SELECT USER_ID FROM USERS WHERE TELEGRAM_ID = {id}")
-        user = user.fetchall()
+        self.cur.execute(f"SELECT user_id FROM users WHERE telegram_id = {id}")
+        user = self.cur.fetchall()
         if len(user) == 0:
             return False
         user_id = user[0][0]
         self.cur = self.con.cursor()
 
-        count = self.cur.execute(f"SELECT MONEY FROM USERS WHERE USER_ID = {user_id}")
+        self.cur.execute(f"SELECT MONEY FROM USERS WHERE USER_ID = {user_id}")
 
-        count = count.fetchall()[0][0]
+        count = self.cur.fetchall()[0][0]
 
         self.cur = self.con.cursor()
 
         self.cur.execute(f"UPDATE USERS SET MONEY = {int(count + money)} WHERE USER_ID = {user_id}")
         self.con.commit()
+
+        return True
 
     def get_est_list_for_tg_user(self, id):
         self.cur = self.con.cursor()
@@ -284,7 +303,7 @@ class DB():
         return names
     def get_est_name_by_id (self, id):
         self.cur = self.con.cursor()
-        self.cur.execute(f"SELECT NAME FROM ESTABLISHMENTS WHERE ESTABLISHMENTS_ID = {id}")
+        self.cur.execute(f"SELECT \"NAME\" FROM ESTABLISHMENTS WHERE ESTABLISHMENTS_ID = {id}")
         user = self.cur.fetchall()
         if len(user) == 0:
             return None
@@ -310,18 +329,20 @@ def main():
     db = DB()
 
     out = ''
-    db.addmomey_for_tg_user('440385834', 100)
-    #db.get_est_list_for_tg_user('440385834')
-    #db.get_money_for_tg_user('440385834')
-    #print(db.get_curent_servers_tasks_count(1))
-    #print(db.subscribe_user_to_est('440385834', 'Pekarnya', 'Test'))
+    print(db.addmomey_for_tg_user('440385834', 100))
+    print(db.get_est_list_for_tg_user('440385834'))
+    print(db.get_money_for_tg_user('440385834'))
+    print(db.get_curent_servers_tasks_count(1))
+    print(db.subscribe_user_to_est('440385834', 'Pekarnya', 'Test'))
 
-    #db.set_base_report('2023-08-06', 'Basic informat')
-    #db.get_est_info_by_name('Pekarnya')
-    #print(db.get_report_type('Pekarnya'))
-    #print(db.get_id_est_by_name('Pekarnya'))
+    db.set_base_report('2023-08-06', 'Basic informat')
+    db.get_est_info_by_name('Pekarnya')
+    print(db.get_report_type('Pekarnya'))
+    print(db.get_license_list())
+    print(db.get_id_est_by_name('Pekarnya'))
     #print(db.get_users_list_for_est('Pekarnya'))
-    #print(db.get_telegram_id(1))
+    #print(db.get_user_id_by_login('discens'))
+    #print(db.get_telegram_id(0))
 
 if __name__ == '__main__':
     main()
