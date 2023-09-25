@@ -32,9 +32,10 @@ python-vlc
 chardet
 python-telegram-bot
 pytelegrambotapi
-fdb
+#fdb
 schedule
-PyQt6
+PyQt5
+psycopg2
 # Export ----------------------------------------------------------------------
 # coremltools>=6.0  # CoreML export
 # onnx>=1.12.0  # ONNX export
