@@ -409,7 +409,7 @@ def create_report(file_path, orders, result, hours_difference):
         else:
             bookmarks.append((0,
                               u'Ещё не закрыто в : ' + str(get_time_for_frames(len(frames), hours_difference))))
-            text_report.append(u'🔓Ещё не закрыто в : ' + str(get_time_for_frames(len(frames, hours_difference))))
+            text_report.append(u'🔓Ещё не закрыто в : ' + str(get_time_for_frames(len(frames), hours_difference)))
         text_report.append("🧍‍♂️ Нет на рабочем месте:\n")
 
         total_time = 0
