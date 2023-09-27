@@ -25,7 +25,7 @@ class DB():
                 user="postgres",
                 password="root",
                 host="10.100.94.60",
-                port="5432",
+                port="8080",
                 database="postgres",
                 client_encoding='utf8'
             )
