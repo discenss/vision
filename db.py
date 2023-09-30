@@ -87,13 +87,13 @@ class DB():
 
         if is_valid_date_format(realdate):
             query = """
-                    INSERT INTO REPORT (ESTABLISHMENT_ID, REALDATE, BASEINFO, BASE_DONE) 
-                    VALUES (?, ?, ?, ?)
+                   INSERT INTO REPORT (ESTABLISHMENT_ID, REALDATE, BASEINFO, BASE_DONE) 
+    VALUES (%s, %s, %s, %s)
                 """
             est_id = self.get_id_est_by_name(est_name)
             if (est_id!= None):
                 #print(str(datetime.now().date()))
-                self.cur.execute(query, (est_id, realdate, baseinfo.encode('utf-8'), str(datetime.now().date())))
+                self.cur.execute(query, (est_id, realdate, baseinfo, str(datetime.now().date())))
                 self.con.commit()
                 LOGGER.info(
                     str(datetime.now())[:-7] + f' Added report for {est_name} and date {realdate}')
@@ -131,7 +131,7 @@ class DB():
 
             query = """
                             INSERT INTO USERS (TELEGRAM_ID, ROLE_ID) 
-                            VALUES (?, ?)
+                            VALUES (%s, %s)
                         """
             self.cur.execute(query, (telegram_id, 5))
             self.con.commit()
@@ -149,12 +149,16 @@ class DB():
         if(len(rows)):
             return "Вы уже подписаны"
 
-        query = """
-                    INSERT INTO SUBSCRIPTION ( USER_ID, ESTABLISHMENTS_ID) 
-                    VALUES (?, ?)
-                """
-        self.cur.execute(query, (user_id, est_id))
-        self.con.commit()
+        try:
+            query = """
+                        INSERT INTO SUBSCRIPTION ( USER_ID, ESTABLISHMENTS_ID) 
+                    VALUES (%s, %s)
+                    """
+            self.cur.execute(query, (user_id, est_id))
+            self.con.commit()
+        except:
+            return "Ошибка"
+
         LOGGER.info(str(datetime.now()) + f' Added user_id - {user_id} and est_id - {est_id} for telegram_id - {telegram_id}')
         return "success"
 
@@ -335,7 +339,7 @@ class DB():
             return None
         user_id = user[0][0]
         self.cur = self.con.cursor()
-        self.cur.execute(f"SELECT NAME FROM ESTABLISHMENTS WHERE OWNER_ID = {user_id}")
+        self.cur.execute(f"SELECT \"NAME\" FROM ESTABLISHMENTS WHERE OWNER_ID = {user_id}")
         ests = self.cur.fetchall()
         names = []
         for est in ests:
