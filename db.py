@@ -25,7 +25,7 @@ class DB():
                 user="postgres",
                 password="root",
                 host="10.100.94.60",
-                port="5432",
+                port="8080",
                 database="postgres",
                 client_encoding='utf8'
             )
@@ -51,6 +51,14 @@ class DB():
 
     def get_user_name_by_id(self, name):
         self.cur.execute(f"SELECT user_id FROM users WHERE \"NAME\" = '{name}'")
+        rows = self.cur.fetchall()
+        if len(rows) == 1:
+            return str(rows[0][0])
+        else:
+            return None
+
+    def get_user_id_by_tg_id(self, tg_id):
+        self.cur.execute(f"SELECT user_id FROM users WHERE telegram_id = '{tg_id}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
             return str(rows[0][0])
@@ -182,6 +190,16 @@ class DB():
         for r in rows:
             id, name, adress, passw, license_id, owner_id = r
             lic.append(str(owner_id) + " " + passw )
+
+        return lic
+
+    def get_role_list(self):
+        lic = []
+        self.cur.execute(f"SELECT * FROM public.\"ROLE\"")
+        rows = self.cur.fetchall()
+        for r in rows:
+            id, name, desc = r
+            lic.append(str(id) + " " + name)
 
         return lic
 

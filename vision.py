@@ -228,13 +228,126 @@ class UsersTableWidget(QTableWidget):
             self.delete_record()
 
     def add_record(self):
-        print("Test")
+        db = DB()
+        dialog = QDialog(self)
+        layout = QVBoxLayout()
+        dialog.setWindowTitle('Добавление пользователя')
+
+        self.name_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Name:"))
+        layout.addWidget(self.name_input)
+
+        self.login_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Login:"))
+        layout.addWidget(self.login_input)
+
+        self.pass_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Pass:"))
+        layout.addWidget(self.pass_input)
+
+        layout.addWidget(QLabel("Role:"))
+        self.role_combo = QComboBox(dialog)
+        layout.addWidget(self.role_combo)
+        for l in db.get_role_list():
+            self.role_combo.addItem(l)
+
+        self.tg_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("telegram id"))
+        layout.addWidget(self.tg_input)
+
+        submit_button = QPushButton("Применить", dialog)
+        submit_button.clicked.connect(dialog.accept)
+        layout.addWidget(submit_button)
+
+        dialog.setLayout(layout)
+
+        result = dialog.exec_()
+        if result == QDialog.Accepted:
+            name = self.name_input.text()
+            login = self.login_input.text()
+            passw = self.pass_input.text()
+            role = self.role_combo.currentText().split(' ')[0]
+            tg_input = self.tg_input.text()
+
+            # Добавление записи в таблицу ESTABLISHMENTS
+            db.cur.execute(f"INSERT INTO USERS (\"NAME\", login, ROLE_ID, PASS, telegram_id) VALUES"
+                        f" ('{name}', '{login}', '{role}', '{passw}', '{tg_input}')")
+            db.con.commit()
+            self.refresh_table()
 
     def edit_record(self):
-        print("Test")
+        row = self.currentRow()
+        if row == -1:
+            return
+        db = DB()
+        dialog = QDialog(self)
+        layout = QVBoxLayout()
+        dialog.setWindowTitle('Добавление записи')
+
+        self.name_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Name:"))
+        layout.addWidget(self.name_input)
+
+        self.login_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Login"))
+        layout.addWidget(self.login_input)
+
+        layout.addWidget(QLabel("Role:"))
+        self.role_combo = QComboBox(dialog)
+        layout.addWidget(self.role_combo)
+        for l in db.get_role_list():
+            self.role_combo.addItem(l)
+
+        self.pass_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Password:"))
+        layout.addWidget(self.pass_input)
+
+        self.tg_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("TG User:"))
+        layout.addWidget(self.tg_input)
+
+
+        # Заполните начальные значения из выбранной строки:
+        self.name_input.setText(self.item(row, 1).text())
+        self.login_input.setText(self.item(row, 2).text())
+        self.pass_input.setText(self.item(row, 4).text())
+        self.tg_input.setText(self.item(row, 6).text())
+
+        # Добавьте аналогичные виджеты для всех других полей
+
+        submit_button = QPushButton("Применить", dialog)
+        submit_button.clicked.connect(dialog.accept)
+        layout.addWidget(submit_button)
+
+        dialog.setLayout(layout)
+
+        result = dialog.exec_()
+        if result == QDialog.Accepted:
+            name = self.name_input.text()
+            login = self.login_input.text()
+            passw = self.pass_input.text()
+            role = self.role_combo.currentText().split(' ')[0]
+            tg_id = self.tg_input.text()
+
+            # Добавление записи в таблицу ESTABLISHMENTS
+            user_id = int(
+                self.item(row, 0).text())
+            db.cur.execute(
+                f"UPDATE USERS SET \"NAME\" = '{name}', login = '{login}', role_id = '{role}', pass = '{passw}', telegram_id = '{tg_id}'  WHERE user_id = {user_id} ")
+            db.con.commit()
+            self.refresh_table()
 
     def delete_record(self):
-        print("Test")
+        db = DB()
+        row = self.currentRow()
+        if row == -1:
+            return
+
+        establishment_id = int(self.item(row, 0).text())
+
+        db.cur.execute(f"DELETE FROM users WHERE user_id = {establishment_id}")
+        db.con.commit()
+        self.refresh_table()
 
 class EstablishmentsTableWidget(QTableWidget):
     def __init__(self, parent=None):
@@ -250,7 +363,7 @@ class EstablishmentsTableWidget(QTableWidget):
     def refresh_table(self):
         db = DB()
         db.cur.execute("""SELECT e.ESTABLISHMENTS_ID, e."NAME", e.ADDRESS, e.PASS,
-                                e.LICENSE_ID, u."NAME", e.REPORT_TYPE, e.VIDEO_PATH, 
+                                e.LICENSE_ID, u.telegram_id, e.REPORT_TYPE, e.VIDEO_PATH, 
                                 e.DATELICENSE_EXPIRE 
                            FROM ESTABLISHMENTS e 
                            JOIN USERS u ON e.OWNER_ID = u.USER_ID""")
@@ -263,7 +376,7 @@ class EstablishmentsTableWidget(QTableWidget):
                 self.setItem(row_index, col_index, QTableWidgetItem(str(data)))
 
         self.setHorizontalHeaderLabels(["ESTABLISHMENTS_ID", "NAME", "ADDRESS", "PASS",
-                                            "LICENSE_ID", "OWNER NAME", "REPORT_TYPE",
+                                            "LICENSE_ID", "OWNER TG", "REPORT_TYPE",
                                             "VIDEO_PATH", "DATELICENSE_EXPIRE"])
 
     def show_error_message(self, message):
@@ -286,6 +399,7 @@ class EstablishmentsTableWidget(QTableWidget):
             self.delete_record()
 
     def add_record(self):
+        db = DB()
         dialog = QDialog(self)
         layout = QVBoxLayout()
         dialog.setWindowTitle('Добавление записи')
@@ -302,12 +416,14 @@ class EstablishmentsTableWidget(QTableWidget):
         layout.addWidget(QLabel("Password:"))
         layout.addWidget(self.pass_input)
 
-        self.license_input = QLineEdit(dialog)
-        layout.addWidget(QLabel("License:"))
-        layout.addWidget(self.license_input)
+        layout.addWidget(QLabel("License type:"))
+        self.license_combo = QComboBox(dialog)
+        layout.addWidget(self.license_combo)
+        for l in db.get_license_list():
+            self.license_combo.addItem(l)
 
         self.user_input = QLineEdit(dialog)
-        layout.addWidget(QLabel("User:"))
+        layout.addWidget(QLabel("User(TG ID):"))
         layout.addWidget(self.user_input)
 
         self.rep_input = QLineEdit(dialog)
@@ -318,8 +434,6 @@ class EstablishmentsTableWidget(QTableWidget):
         layout.addWidget(QLabel("Video path:"))
         layout.addWidget(self.video_input)
 
-        # Добавьте аналогичные виджеты для всех других полей
-
         submit_button = QPushButton("Применить", dialog)
         submit_button.clicked.connect(dialog.accept)
         layout.addWidget(submit_button)
@@ -328,29 +442,25 @@ class EstablishmentsTableWidget(QTableWidget):
 
         result = dialog.exec_()
         if result == QDialog.Accepted:
-            db = DB()
             name = self.name_input.text()
             address = self.address_input.text()
             passw = self.pass_input.text()
-            license = self.license_input.text()
+            license = self.license_combo.currentText().split(' ')[0]
             user = self.user_input.text()
             rep_input = self.rep_input.text()
             video_input = self.video_input.text()
 
-            # Получение ID пользователя по его имени
-            #cur = self.connection.cursor()
-            #cur.execute(f"SELECT USER_ID FROM USERS WHERE NAME = '{user}'")
-            #user_id = cur.fetchone()[0]
-            user_name = db.get_user_name_by_id(user)
-            if user_name is None:
+            #user_name = db.get_user_name_by_id(user)
+            user_id = db.get_user_id_by_tg_id(user)
+            if user_id is None:
                 self.show_error_message('Пользователь не найден')
                 return
 
 
 
             # Добавление записи в таблицу ESTABLISHMENTS
-            db.cur.execute(f"INSERT INTO ESTABLISHMENTS (NAME, ADDRESS, PASS, LICENSE_ID, OWNER_ID, REPORT_TYPE, VIDEO_PATH) VALUES"
-                        f" ('{name}', '{address}', '{passw}', '{license}', '{user_name}' , '{rep_input}', '{video_input}')")
+            db.cur.execute(f"INSERT INTO ESTABLISHMENTS (\"NAME\", ADDRESS, PASS, LICENSE_ID, OWNER_ID, REPORT_TYPE, VIDEO_PATH) VALUES"
+                        f" ('{name}', '{address}', '{passw}', '{license}', '{user_id}' , '{rep_input}', '{video_input}')")
             db.con.commit()
             self.refresh_table()
 
@@ -394,13 +504,12 @@ class EstablishmentsTableWidget(QTableWidget):
         layout.addWidget(self.video_input)
 
         # Заполните начальные значения из выбранной строки:
-        self.name_input.setText(self.item(row, 1).text())  # Предполагая, что 'Name' находится во 2-й колонке
-        self.address_input.setText(self.item(row, 2).text())  # Предполагая, что 'Name' находится во 2-й колонке
-        self.pass_input.setText(self.item(row, 3).text())  # Предполагая, что 'Name' находится во 2-й колонке
-        #self.license_input.setText(self.item(row, 4).text())  # Предполагая, что 'Name' находится во 2-й колонке
-        self.user_input.setText(self.item(row, 5).text())  # Предполагая, что 'Name' находится во 2-й колонке
-        self.rep_input.setText(self.item(row, 6).text())  # Предполагая, что 'Name' находится во 2-й колонке
-        self.video_input.setText(self.item(row, 7).text())  # Предполагая, что 'Name' находится во 2-й колонке
+        self.name_input.setText(self.item(row, 1).text())
+        self.address_input.setText(self.item(row, 2).text())
+        self.pass_input.setText(self.item(row, 3).text())
+        self.user_input.setText(self.item(row, 5).text())
+        self.rep_input.setText(self.item(row, 6).text())
+        self.video_input.setText(self.item(row, 7).text())
 
         # Добавьте аналогичные виджеты для всех других полей
 
@@ -420,19 +529,16 @@ class EstablishmentsTableWidget(QTableWidget):
             rep_input = self.rep_input.text()
             video_input = self.video_input.text()
 
-            user_name = db.get_user_name_by_id(user)
-            if user_name is None:
+            user_id = db.get_user_id_by_tg_id(user)
+            if user_id is None:
                 self.show_error_message('Пользователь не найден')
                 return
 
             # Обновление записи в таблице ESTABLISHMENTS
             establishment_id = int(
-                self.item(row, 0).text())  # предполагая, что ESTABLISHMENTS_ID находится в 1-й колонке
-            #cur.execute(
-            #    f"UPDATE ESTABLISHMENTS SET NAME = '{name}', OWNER_ID = {user_id} WHERE ESTABLISHMENTS_ID = {establishment_id}")
+                self.item(row, 0).text())
             db.cur.execute(
-                f"UPDATE ESTABLISHMENTS SET NAME = '{name}', ADDRESS = '{address}', PASS = '{passw}', LICENSE_ID = '{license}', OWNER_ID = '{user_name}', REPORT_TYPE = '{rep_input}', VIDEO_PATH = '{video_input}'  WHERE ESTABLISHMENTS_ID = {establishment_id} ")
-                #f" ('{name}', '{address}', '{passw}', '{license}', '{user_name}' , '{rep_input}', '{video_input}')")
+                f"UPDATE ESTABLISHMENTS SET \"NAME\" = '{name}', ADDRESS = '{address}', PASS = '{passw}', LICENSE_ID = '{license}', OWNER_ID = '{user_id}', REPORT_TYPE = '{rep_input}', VIDEO_PATH = '{video_input}'  WHERE ESTABLISHMENTS_ID = {establishment_id} ")
             db.con.commit()
             self.refresh_table()
 
@@ -442,7 +548,7 @@ class EstablishmentsTableWidget(QTableWidget):
         if row == -1:
             return
 
-        establishment_id = int(self.item(row, 0).text())  # предполагая, что ESTABLISHMENTS_ID находится в 1-й колонке
+        establishment_id = int(self.item(row, 0).text())
 
         db.cur.execute(f"DELETE FROM ESTABLISHMENTS WHERE ESTABLISHMENTS_ID = {establishment_id}")
         db.con.commit()
