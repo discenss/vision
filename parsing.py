@@ -443,7 +443,7 @@ def create_report(file_path, orders, result, hours_difference):
         elif o[0].hour >= 19:
             end = end + 1
 
-    text_report.append("📉Уровень загрузки проекта:\n")
+    text_report.append("\n📉Количество продаж проекта:\n")
     text_report.append(f"8:00 - 13:00 : {begin}\n")
     text_report.append(f"13:00 - 19:00 : {midle}\n")
     text_report.append(f"19:00 - 22:00 : {end}\n")
