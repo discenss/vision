@@ -330,6 +330,14 @@ def parse_poster(pay_report):
 
 def create_report(file_path, orders, result, hours_difference):
 
+    data = {
+        'opening_time': '',
+        'closing_time': '',
+        'away_periods': [],
+        'total_away': '',
+        'activities': []
+    }
+
     if os.path.isfile(file_path):
         frames = parse_result(file_path)
     else:
@@ -395,21 +403,25 @@ def create_report(file_path, orders, result, hours_difference):
             bookmarks.append((int(no_workers.items[0]['end'] / FPS),
                       'Opening: ' + str(get_time_for_frames(no_workers.items[0]['begin'], hours_difference))))
             text_report.append(u'🔓Открытие: ' + str(get_time_for_frames(no_workers.items[0]['end'], hours_difference)))
+            data['opening_time'] = str(get_time_for_frames(no_workers.items[0]['end'], hours_difference))
             no_workers.items.remove(no_workers.items[0])
         else:
             bookmarks.append(( 0,
                               'Already opened in begin. Opening: ' + str(get_time_for_frames(0, hours_difference))))
+            data['opening_time'] = str(get_time_for_frames(0, hours_difference))
             text_report.append(u'🔓Уже открыто: ' + str(get_time_for_frames(0, hours_difference)))
 
         if ((len(frames) - no_workers.items[-1]['end']) / len(frames) < 0.01):
             bookmarks.append((int(no_workers.items[-1]['begin'] / FPS),
                               'Closing: ' + str(get_time_for_frames(no_workers.items[-1]['begin'], hours_difference))))
             text_report.append('🔓Закрыто: ' + str(get_time_for_frames(no_workers.items[-1]['begin'], hours_difference)))
+            data['closing_time'] = str(get_time_for_frames(no_workers.items[-1]['begin'], hours_difference))
             no_workers.items.remove(no_workers.items[-1])
         else:
             bookmarks.append((0,
                               u'Ещё не закрыто в : ' + str(get_time_for_frames(len(frames), hours_difference))))
             text_report.append(u'🔓Ещё не закрыто в : ' + str(get_time_for_frames(len(frames), hours_difference)))
+            data['closing_time'] = str(get_time_for_frames(len(frames), hours_difference))
         text_report.append("🧍‍♂️ Нет на рабочем месте:\n")
 
         total_time = 0
@@ -419,18 +431,25 @@ def create_report(file_path, orders, result, hours_difference):
             time1 = get_time_for_frames(e['begin'], hours_difference)
             time2 = get_time_for_frames(e['end'], hours_difference)
             total_time += (time2.hour - time1.hour)*60 + (time2.minute - time1.minute)
-            text_report.append(f" c {str(get_time_for_frames(e['begin'], hours_difference))} по {str(get_time_for_frames(e['end'], hours_difference))}")
+            time_from = str(get_time_for_frames(e['begin'], hours_difference))
+            time_till = str(get_time_for_frames(e['end'], hours_difference))
+            text_report.append(f" c {time_from} по {time_till}")
+            data['away_periods'].append(f"{time_from} - {time_till}")
 
         text_report.append(f'🧍‍♂️Общее время отсутствия: { total_time} мин')
+        data['total_away'] = str(total_time)
+
 
     else:
         bookmarks.append((0,
                           'Already opened in ' + str(get_time_for_frames(0, hours_difference))))
         text_report.append(u'🔓Уже открыто: ' + str(get_time_for_frames(0, hours_difference)))
+        data['opening_time'] = str(get_time_for_frames(len(frames), hours_difference))
         text_report.append(u' Не замечено отсутствие на рабочем месте')
         bookmarks.append((0,
-                          u'Still working at : ' + str(get_time_for_frames(len(frames, hours_difference)))))
-        text_report.append(u'🔓Ещё не закрыто в : ' + str(get_time_for_frames(len(frames, hours_difference))))
+                          u'Still working at : ' + str(get_time_for_frames(len(frames), hours_difference))))
+        text_report.append(u'🔓Ещё не закрыто в : ' + str(get_time_for_frames(len(frames), hours_difference)))
+        data['closing_time'] = str(get_time_for_frames(len(frames), hours_difference))
 
     begin = 0
     midle = 0
@@ -445,9 +464,11 @@ def create_report(file_path, orders, result, hours_difference):
 
     text_report.append("\n📉Количество продаж проекта:\n")
     text_report.append(f"8:00 - 13:00 : {begin}\n")
+    data['activities'].append(f"8:00 - 13:00 : {begin}")
     text_report.append(f"13:00 - 19:00 : {midle}\n")
+    data['activities'].append(f"13:00 - 19:00 : {midle}")
     text_report.append(f"19:00 - 22:00 : {end}\n")
-
+    data['activities'].append(f"19:00 - 22:00 : {end}")
     media_file = os.path.basename(result)[:-4] + "mp4"
     root = ET.Element("playlist", version="1", xmlns="http://www.videolan.org/vlc/playlist/ns/0/")
     track_list = ET.SubElement(root, "trackList")
@@ -465,7 +486,7 @@ def create_report(file_path, orders, result, hours_difference):
     tree = ET.ElementTree(root)
 
     tree.write(result, encoding="utf-8", xml_declaration=True)
-    return text_report
+    return data
 
 def parse_report(report_file, est_name):
     db = DB()
@@ -480,11 +501,11 @@ def parse_report(report_file, est_name):
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    video_file =  r'Z:\testipcam\MaxBeer\video\1280\3_2023-09-12_11-00-00.mp4'
+    video_file =  r'Z:\testipcam\MaxBeer\video\1280\4_2023-09-20_07-00-00.mp4'
     report_file = video_file [:-4] + ".json"
     orders = parse_poster(report_file)
     #db = DB()
-    frames_file = r'E:\dev\sources\testing\exp75\labels\2_2023-08-19_08-00-00.txt'
+    frames_file = r'/Users/oleh/Documents/dev/vision/4_2023-09-20_07-00-00.txt'
 
     text_base_report = create_report(frames_file, orders, video_file[:-4] + '.xspf', 8)
     print(text_base_report)
