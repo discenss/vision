@@ -196,7 +196,17 @@ class DB():
             lic.append(str(owner_id) + " " + passw )
 
         return lic
+    def get_full_license_list(self):
+        self.cur.execute(f"SELECT * FROM license")
+        rows = self.cur.fetchall()
 
+        return rows
+
+    def get_full_est_list(self):
+        self.cur.execute(f"SELECT * FROM establishments")
+        rows = self.cur.fetchall()
+
+        return rows
     def get_role_list(self):
         lic = []
         self.cur.execute(f"SELECT * FROM public.\"ROLE\"")
@@ -226,9 +236,9 @@ class DB():
         self.cur = self.con.cursor()
         self.cur.execute(f"SELECT * FROM SERVERS")
         rows = self.cur.fetchall()
-        servers = []
-        best_tasks = 0
+        best_tasks = -1000
         ser_ip = ''
+        ser_id = ''
         for r in rows:
             id, desc, ip, threads = r
 
@@ -237,8 +247,9 @@ class DB():
             if best_tasks < (threads - self.get_curent_servers_tasks_count(id)):
                 best_tasks = threads - self.get_curent_servers_tasks_count(id)
                 ser_ip = ip
+                ser_id = id
 
-        return ser_ip
+        return ser_ip, ser_id
 
     def get_server_ip_by_id(self, id):
         self.cur = self.con.cursor()
@@ -273,6 +284,25 @@ class DB():
         try:
             self.cur = self.con.cursor()
             self.cur.execute(f"SELECT USER_ID FROM USERS WHERE TELEGRAM_ID = {id}")
+            user = self.cur.fetchall()
+            if len(user) == 0:
+                return False
+            user_id = user[0][0]
+            self.cur = self.con.cursor()
+
+
+            self.cur.execute(f"SELECT MONEY FROM USERS WHERE USER_ID = {user_id}")
+
+            count = self.cur.fetchall()[0][0]
+        except:
+            pass
+        return count
+
+    def get_money_for_id_user(self, id):
+        count = 0
+        try:
+            self.cur = self.con.cursor()
+            self.cur.execute(f"SELECT USER_ID FROM USERS WHERE USER_ID = {id}")
             user = self.cur.fetchall()
             if len(user) == 0:
                 return False
@@ -347,24 +377,70 @@ class DB():
 
         return names
 
+    def get_license_name_and_price(self, lic_id):
+        self.cur = self.con.cursor()
+        self.cur.execute(f"SELECT \"NAME\", price FROM license WHERE license_id = {lic_id}")
+        user = self.cur.fetchall()
+        if len(user) == 0:
+            return None
+        lic_name = user[0][0]
+        lic_price = user[0][1]
+        return lic_name, lic_price
+
+    def set_start_task(self, server_id, est_id, path):
+        self.cur = self.con.cursor()
+        insert_query = """
+            INSERT INTO public.tasks (server_id, est_id, begin_time, "path")
+            VALUES (%s, %s, %s, %s);
+        """
+        self.cur.execute(insert_query, (server_id, est_id, datetime.now().time(), path))
+        self.con.commit()
+
+    def set_end_task(self, server_id, est_id, path):
+        update_query = """
+            UPDATE public.tasks
+            SET end_time = %s
+            WHERE server_id = %s
+            AND est_id = %s
+            AND "path" = %s
+            AND begin_time IS NOT NULL;
+        """
+        self.cur.execute(update_query, (datetime.now().time(), server_id, est_id, path))
+
+        # Подтверждение транзакции
+        self.con.commit()
+
+
+
 def main():
     db = DB()
 
     out = ''
-    print(db.addmomey_for_tg_user('440385834', 100))
-    print(db.get_est_list_for_tg_user('440385834'))
-    print(db.get_money_for_tg_user('440385834'))
-    print(db.get_curent_servers_tasks_count(1))
-    print(db.subscribe_user_to_est('440385834', 'Pekarnya', 'Test'))
+    #print(db.addmomey_for_tg_user('440385834', 100))
+    #print(db.get_est_list_for_tg_user('440385834'))
+    #print(db.get_money_for_tg_user('440385834'))
+    #print(db.get_curent_servers_tasks_count(1))
+    #print(db.subscribe_user_to_est('440385834', 'Pekarnya', 'Test'))
 
-    db.set_base_report('2023-08-06', 'Basic informat')
-    db.get_est_info_by_name('Pekarnya')
-    print(db.get_report_type('Pekarnya'))
-    print(db.get_license_list())
-    print(db.get_id_est_by_name('Pekarnya'))
+    #db.set_base_report('2023-08-06', 'Basic informat')
+    #db.get_est_info_by_name('Pekarnya')
+    #print(db.get_report_type('Pekarnya'))
+    #print(db.get_license_list())
+    #print(db.get_id_est_by_name('Pekarnya'))
     #print(db.get_users_list_for_est('Pekarnya'))
     #print(db.get_user_id_by_login('discens'))
     #print(db.get_telegram_id(0))
+    #print(db.get_license_name_and_price(1))
+    #print(db.get_server_for_task())
+    #db.set_start_task("Test1", '1', '1', 'path1')
+    #db.set_start_task("Test1", '1', '1', 'path2')
+    #db.set_start_task("Test1", '1', '1', 'path3')
+    #db.set_start_task("Test1", '1', '1', 'path4')
+    #db.set_start_task("Test1", '1', '1', 'path5')
+    print(db.get_server_for_task())
+    db.set_start_task("Test1", '1', '1', 'path6')
+
+    db.set_end_task("Test1", '1', '1', 'path')
 
 if __name__ == '__main__':
     main()
