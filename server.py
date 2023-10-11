@@ -20,6 +20,20 @@ from utils.general import LOGGER
 
 bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 
+base_rep = """
+🔓Открытие: %s
+🔓Закрыто: %s \n
+🧍‍♂️ Нет на рабочем месте:
+%s
+\n🧍‍♂️Общее время отсутствия: %s мин
+\n📉Количество продаж проекта:
+%s
+
+Итого продаж: %s 
+🧾Средний чек проекта: %s грн.
+💸Выручка : %s грн
+"""
+
 def get_params():
     srv_cfg = {}
     if ( len(sys.argv) == 2 and os.path.isfile( sys.argv[1]) ):
@@ -49,20 +63,27 @@ def get_time_from_file(source_path):
     else:
         return False
 
+def generate_report_text(report_data):
+    report_lines = [
+        f"Opening : {report_data['opening_time']}",
+        f"Closing  : {report_data['closing_time']}",
+    ]
+
+    for start in report_data['away_periods']:
+        report_lines.append(f"Away: " + start)
+
+    report_lines.append("Total away : " + report_data['total_away'])
+
+    for start in report_data['activities']:
+        report_lines.append(f"Activity : {start}")
+
+    report_lines.append("Sum : " + report_data['sum'])
+    return '\n'.join(report_lines)
+
+
 def f(x, y):
 
     weight = get_params()['model_path']
-    est_name = "Pekarnya"
-    #script = os.path.join(os.getcwd(), 'detect.py')
-    #if os.path.isfile(os.path.join(os.getcwd(), 'detect.py')):
-    #    params = [sys.executable, script, weights, '--save-txt', '--device=' + get_params()['device']] + str(y).split(' ')
-    #    print(str(datetime.datetime.now()) + ': Task started with params ' + str(y))
-    #    process = Popen(params, stdout=PIPE, stderr=PIPE)
-    #    stdout, stderr = process.communicate()
-    #    #print(stdout)
-    #    #print(stderr)
-    #r = vars([weights, '--save-txt', '--device=' + get_params()['device']])
-
     db = DB()
     args = y.split()
 
@@ -70,34 +91,55 @@ def f(x, y):
     parser.add_argument("--project", type=str, help="Path to project")
     parser.add_argument("--source", type=str, help="Path to source")
     parser.add_argument("--est", type=str, help="Path to source")
-
+    parser.add_argument("--id", type=str, help="Path to source")
     parsed_args = parser.parse_args(args)
 
     project_path = parsed_args.project
     source_path = parsed_args.source
     est_name = parsed_args.est
+    server_id = parsed_args.id
 
     converted_date = get_date_from_file(source_path)
-    #print(est_name)
     if converted_date == False:
         return str(y)
+    try:
+        LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task started with params ' + str(y))
+        db.set_start_task( server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.est)
+        frames_file = run(weights=weight, source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True, nosave=True, device=get_params()['device'])
+        db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.est)
+        #frames_file = r"E:\dev\sources\testing\exp183\4_2023-09-29_07-00-00.txt"
+        LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task finished with params ' + str(y))
+        orders, sum = parse_report(source_path[:-3] + 'json', est_name)
+        data = create_report(frames_file, orders, source_path[:-4] + '.xspf', get_time_from_file(source_path).hour)
+        data['sum'] = str(sum)
+        count = 1
+        if len(orders) > 0:
+            count = len(orders)
+        else:
+            count = 1
+        away_periods_formatted = "\n".join(data['away_periods'])
+        activities_formatted = "\n".join(data['activities'])
+        formatted_report = base_rep % (
+            data['opening_time'],
+            data['closing_time'],
+            away_periods_formatted,
+            data['total_away'],
+            activities_formatted,
+            count,
+            int(sum/count),
+            sum
+        )
+        users = db.get_users_list_for_est(est_name)
 
-    LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task started with params ' + str(y))
-    frames_file = run(weights=weight, source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True, nosave=True, device=get_params()['device'])
-    #frames_file = r"E:\dev\sources\testing\exp17\labels\2_2023-08-01_08-00-01.txt"
-    LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task finished with params ' + str(y))
-    #print(frames_file)
-    #print(source_path[:-3] + 'json')
-    orders = parse_report(source_path[:-3] + 'json', est_name)
-    text_base_report = create_report(frames_file, orders, source_path[:-4] + '.xspf', get_time_from_file(source_path).hour)
-    result = '\n'.join(text_base_report)
-    db.set_base_report(est_name, str(converted_date), result)
-    users = db.get_users_list_for_est(est_name)
-    user_message = f"📈 Отчёт за дату: {converted_date}\n Заведение: {est_name}\n" + result
+        user_message = f"📈 Отчёт за дату: {converted_date}\n Заведение: {est_name}\n" + formatted_report
 
-    for user in users:
-        tg_id = db.get_telegram_id(user)
-        bot.send_message(tg_id, user_message)
+        db.set_base_report(est_name, str(converted_date), generate_report_text(data))
+        for user in users:
+            tg_id = db.get_telegram_id(user)
+            bot.send_message(tg_id, user_message)
+    except Exception as e:
+        LOGGER.info(e + ': ERROR ')
+
 
     return str(y)
 
