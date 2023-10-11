@@ -3,12 +3,13 @@ from telebot import types
 from datetime import datetime
 from db import DB
 from telebot.types import LabeledPrice, ShippingOption
+import time
 
 # 6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM
 
 payment_token = "1711243933:LIVE:7T64-2KCi-TyH3-kcN7"
-PRODUCT_COST = 500  # Example cost in the smallest units (e.g., cents for USD)
-SHIPPING_COST = 5  # Example shipping cost
+#PRODUCT_COST = 500  # Example cost in the smallest units (e.g., cents for USD)
+#SHIPPING_COST = 5  # Example shipping cost
 
 bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 
@@ -18,6 +19,9 @@ report_for_date_or_exit = "Введите дату в формате ГГГГ-М
 est_name_and_password_for_subsc = "Введите название_заведения и пароль через пробел. Hапример:\n MyBar MyPassword"
 top_up_account = "Введите сумму пополнения"
 
+def send_bot_message(message, tg_id):
+    bot.send_message(tg_id, message)
+
 @bot.pre_checkout_query_handler(func=lambda query: True)
 def process_pre_checkout(query):
     bot.answer_pre_checkout_query(pre_checkout_query_id=query.id, ok=True)
@@ -26,7 +30,7 @@ def process_pre_checkout(query):
 def handle_successful_payment(message):
     db = DB()
     db.addmomey_for_tg_user(message.from_user.id, message.successful_payment.total_amount / 100)
-    bot.reply_to(message, "Вы успешно пополнили счёт")
+    bot.reply_to(message, "Вы успешно пополнили счёт. Баланс %s" % db.get_money_for_tg_user(message.from_user.id))
     show_main_menu(message)
 
 def show_main_menu(message):
@@ -189,4 +193,9 @@ def get_text_messages(message):
 
 
 if __name__ == '__main__':
-    bot.polling(none_stop=True, interval=0) #обязательная для работы бота часть
+    while True:
+        try:
+            bot.polling(none_stop=True)
+        except ConnectionError as e:
+            print("Connection error, retrying...", e)
+            time.sleep(15)
