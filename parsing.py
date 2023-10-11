@@ -289,6 +289,8 @@ def get_time_for_frames(frame, hours_difference):
 def parse_aiko(pay_report):
     orders = []#time when report was closed, FALSE - card, TRUE - cash// FALSE - not proceed, TRUE - proceed
     #pay_report = video_file[:-3] + "json"
+    sum = 0
+    counter = 0
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
             data = json.load(f, encoding='utf-8')
@@ -296,37 +298,47 @@ def parse_aiko(pay_report):
                 if (client['order']['payments'] != None and client['order']['payments'][0]['paymentType']['kind'] == 'External'): #card
                     if client['order']['whenClosed'] != None:
                         datetime_obj = datetime.datetime.strptime(client['order']['whenClosed'], "%Y-%m-%d %H:%M:%S.%f")
+                        sum = sum + client['order']['sum']
+                        counter = counter + 1
                         orders.append([datetime_obj.time(), False, False])
                 else:#cash
                     if client['order']['whenClosed'] != None:
                         datetime_obj = datetime.datetime.strptime(client['order']['whenClosed'], "%Y-%m-%d %H:%M:%S.%f")
+                        sum = sum + client['order']['sum']
+                        counter = counter + 1
                         orders.append([datetime_obj.time(), True, False])
 
     else:
         LOGGER.info(str(datetime.datetime.now()) + f' File not found: {pay_report}')
 
-    return orders
+    return orders, int(sum)
 
 def parse_poster(pay_report):
     orders = []
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
             data = json.load(f, encoding='utf-8')
+            counter = 0
+            sum = 0
             for num, client in data.items():
                 if ('cash' in client['payments']):  # card
                     if client['close'] != None:
                         datetime_obj = datetime.datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
                         t = datetime_obj.time()
+                        counter = counter + 1
+                        sum = sum + client['payments']['cash']
                         orders.append([t, True, False])
-                else:
+                elif ('card' in client['payments']):
                     if client['close'] != None:
                         datetime_obj = datetime.datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
                         t = datetime_obj.time()
+                        sum = sum + client['payments']['card']
+                        counter = counter + 1
                         orders.append([t, False, False])
     else:
         LOGGER.info(str(datetime.datetime.now()) + f' File not found: {pay_report}')
 
-    return orders
+    return orders, int(sum)
 
 def create_report(file_path, orders, result, hours_difference):
 
@@ -390,11 +402,11 @@ def create_report(file_path, orders, result, hours_difference):
         time_sell = (time_sell.hour - hours_difference) * 3600 + time_sell.minute * 60 + time_sell.second
 
         if order[1] == False:
-            bookmarks.append((int(time_sell), 'Pay card: ' + str(order[0])[:-6]))
+            bookmarks.append((int(time_sell), 'Pay card: ' + str(order[0])))
             order[2] = True
         else:
             if order[2] == False:
-                bookmarks.append((int(time_sell), 'WARNING. Cash : ' + str(order[0])[:-6]))
+                bookmarks.append((int(time_sell), 'WARNING. Cash : ' + str(order[0])))
                 order[2] = True
 
     if len(no_workers.items) > 2:
@@ -493,21 +505,21 @@ def parse_report(report_file, est_name):
     orders = []
     report_type = db.get_report_type(est_name)
     if report_type == "aiko":
-        orders = parse_aiko(report_file)
+        return parse_aiko(report_file)
     elif report_type == "poster":
-        orders = parse_poster(report_file)
+        return parse_poster(report_file)
 
-    return orders
+    return orders, 0, 0
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    video_file =  r'Z:\testipcam\MaxBeer\video\1280\4_2023-09-20_07-00-00.mp4'
-    report_file = video_file [:-4] + ".json"
-    orders = parse_poster(report_file)
+    video_file =  r'Z:\testipcam\frankjay\video\1280\6_2023-10-09_07-00-00.mp4'
+    report_file = r"Z:\testipcam\frankjay\video\1280\6_2023-10-09_07-00-00.json"
+    orders, sum = parse_poster(report_file)
     #db = DB()
-    frames_file = r'/Users/oleh/Documents/dev/vision/4_2023-09-20_07-00-00.txt'
+    frames_file = r'E:\dev\sources\testing\exp228\6_2023-10-09_07-00-00.txt'
 
-    text_base_report = create_report(frames_file, orders, video_file[:-4] + '.xspf', 8)
+    text_base_report = create_report(frames_file, orders, video_file[:-4] + '.xspf', 7)
     print(text_base_report)
     #result = '\n'.join(text_base_report)
     #db.set_base_report('Pekarnya', '2023-08-05', result)
