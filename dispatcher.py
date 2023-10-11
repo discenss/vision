@@ -7,16 +7,21 @@ import time
 from utils.general import LOGGER
 from db import DB
 import re
-import datetime
+from datetime import datetime
 from datetime import date
+from bot import send_bot_message
 
 res=r'E:\dev\sources\testing'
 
+days_untin_final = "У вас осталось %s дней до окончания лицензии\n"
+users_money = "У вас на счету %s\n"
+license_name_and_price = "Вы используете для заведения %s подписку %s. Baм необходимо пополнить счёт на %s"
+paying_for_license = "С вашего счета списано %s за использование подписки %s для заведения %s. На счету остаток %s"
 def get_date_from_file(source_path):
     match = re.search(r'(\d{4}-\d{2}-\d{2})', source_path)
     if match:
         date_string = match.group(1)
-        converted_date = datetime.datetime.strptime(date_string, '%Y-%m-%d').date()
+        converted_date = datetime.strptime(date_string, '%Y-%m-%d').date()
         return converted_date
         #print("Извлеченная дата:", converted_date)
     else:
@@ -26,7 +31,7 @@ def run_processing():
 
     print(" Processing started")
     db = DB()
-    db.cur.execute(f"SELECT * FROM ESTABLISHMENTS")
+    db.cur.execute("SELECT * FROM establishments")
     rows = db.cur.fetchall()
     list_not_resp = []
     for i in range(len(rows)):
@@ -49,22 +54,21 @@ def run_processing():
                                 continue
 
                             while True:
-                                ip_server = db.get_server_for_task(list_not_resp)
-
+                                ip_server, id_server = db.get_server_for_task(list_not_resp)
                                 if len(ip_server) < 1:
                                     return ''
 
                                 try:
-                                    address = ('10.100.94.60', 8443)
+                                    address = (ip_server, 8443)
                                     conn = Client(address)
-                                    command = f"--source={os.path.join(path, file)} --project={res} --est={name}"
+                                    command = f"--source={os.path.join(path, file)} --project={res} --est={name} --id={id_server}"
                                     print(command)
                                     conn.send(command)
                                     conn.send('close')
                                     conn.close()
                                     break
                                 except:
-                                    LOGGER.info(str(datetime.datetime.now()[:-7]) + " Not connected to server " + ip_server)
+                                    LOGGER.info(str(datetime.now()[:-7]) + " Not connected to server " + ip_server)
                                     list_not_resp.append(ip_server)
                                     pass
                                     continue
@@ -74,11 +78,38 @@ def run_processing():
 
     else:
         return None
+def license_check():
+    db = DB()
+    rows = db.get_full_est_list()
+    rows = db.cur.fetchall()
+    for i in range(len(rows)):
+        id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[i]
+        days_difference = (date - datetime.now().date()).days
+        lic_name, lic_price = db.get_license_name_and_price(license_id)
+        tg_id = db.get_telegram_id(owner_id)
+        tg_user_money = db.get_money_for_tg_user(tg_id)
+        if ( days_difference < 7 and days_difference > 0 and lic_name == "Test"):
+            result_string = days_untin_final % (days_difference)
+            if (tg_user_money == 0):
+                send_bot_message(result_string + " У вас на счету 0 грн. Пополните счет что бы продолжить использовать сервис", tg_id)
+        elif ( days_difference < 7 and days_difference > 0 and lic_name !="Test"):
+            money = db.get_money_for_tg_user(tg_id)
+            if (money < lic_price):
+                result_string = days_untin_final % (days_difference)
+                result_string = result_string + users_money % (money) + license_name_and_price %(name, lic_name, lic_price - money)
+                send_bot_message(result_string, tg_id)
+
+        elif (days_difference == 0 and lic_name != "Test"):
+            if (tg_user_money >= lic_price ):
+                db.addmomey_for_tg_user(tg_id, lic_price * -1)
+                result_string = paying_for_license %(lic_price, lic_name, name, db.get_money_for_tg_user(tg_id))
+                send_bot_message(result_string, tg_id)
 
 # Планирование задачи на выполнение каждый день в определенное время
-schedule.every().day.at("00:00").do(run_processing)
+schedule.every().day.at("03:00").do(run_processing)
 
 def main():
+    #license_check()
     run_processing()
     while True:
         schedule.run_pending()
