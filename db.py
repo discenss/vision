@@ -84,7 +84,7 @@ class DB():
             return None
 
     def set_base_report(self, est_name, realdate, baseinfo = None):
-
+        self.cur = self.con.cursor()
         if is_valid_date_format(realdate):
             query = """
                    INSERT INTO REPORT (ESTABLISHMENT_ID, REALDATE, BASEINFO, BASE_DONE) 
@@ -97,6 +97,20 @@ class DB():
                 self.con.commit()
                 LOGGER.info(
                     str(datetime.now())[:-7] + f' Added report for {est_name} and date {realdate}')
+
+    def update_base_report(self, est_name, realdate, baseinfo=None):
+        self.cur = self.con.cursor()
+        if is_valid_date_format(realdate):
+            query = """
+                UPDATE REPORT 
+                SET BASEINFO = %s
+                WHERE ESTABLISHMENT_ID = %s AND REALDATE = %s
+            """
+            est_id = self.get_id_est_by_name(est_name)
+            if est_id is not None:
+                self.cur.execute(query, (baseinfo, est_id, realdate))
+                self.con.commit()
+                LOGGER.info(str(datetime.now())[:-7] + f' Updated BASEINFO for {est_name} and date {realdate}')
 
     def get_est_info_by_name(self, est_name):
         self.cur.execute(f'SELECT * FROM establishments WHERE "NAME" = \'{est_name}\'')
@@ -112,6 +126,16 @@ class DB():
             desc, beg, end, name, price, lic_id = rows[0]
         else:
             return None
+
+    def get_list_reports_for_period(self, start_date, end_date, est_name):
+        est_id = self.get_id_est_by_name(est_name)
+        self.cur = self.con.cursor()
+        self.cur.execute(f"""SELECT baseinfo 
+                             FROM public.report 
+                             WHERE realdate BETWEEN '{start_date}' AND '{end_date}' AND establishment_id = {est_id}""")
+
+        for r in self.cur.fetchall():
+            print(r)
 
     def subscribe_user_to_est(self, telegram_id, est_name, pass_est):
         self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{est_name}'")
@@ -192,8 +216,8 @@ class DB():
         self.cur.execute(f"SELECT * FROM license")
         rows = self.cur.fetchall()
         for r in rows:
-            id, name, adress, passw, license_id, owner_id = r
-            lic.append(str(owner_id) + " " + passw )
+            id, name, adress, license_id = r
+            lic.append(str(license_id) + " " + name)
 
         return lic
     def get_full_license_list(self):
