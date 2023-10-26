@@ -25,14 +25,17 @@ base_rep = """
 🔓Закрыто: %s \n
 🧍‍♂️ Нет на рабочем месте:
 %s
-\n🧍‍♂️Общее время отсутствия: %s мин
+\n🧍‍♂️Общее время отсутствия: %s мин\n
+  Общее время работы %s
+"""
+
+sells_rep = """
 \n📉Количество продаж проекта:
-%s
+%s 
 
 Итого продаж: %s 
 🧾Средний чек проекта: %s грн.
-💸Выручка : %s грн
-  Общее время работы %s 
+💸Выручка : %s грн 
 """
 
 def get_params():
@@ -132,12 +135,16 @@ def f(x, y):
             data['closing_time'],
             away_periods_formatted,
             data['total_away'],
-            activities_formatted,
-            count,
-            int(sum/count),
-            sum,
             str(time_close - time_open)
         )
+
+        if len(orders) > 0:
+            formatted_report = formatted_report + sells_rep % (
+                activities_formatted,
+                count,
+                int(sum / count),
+                sum
+            )
         users = db.get_users_list_for_est(est_name)
 
         user_message = f"📈 Отчёт за дату: {converted_date}\n Заведение: {est_name}\n" + formatted_report
@@ -159,8 +166,8 @@ def clb(x):
 def main():
 
 
-    with Pool(processes=int(get_params()['threads'])) as pool:
-        address = ('10.100.94.60', 8443)  # family is deduced to be 'AF_INET'
+    with Pool(processes=5) as pool:
+        address = ('127.0.0.1', 1111)  # family is deduced to be 'AF_INET'
         listener = Listener(address)
         LOGGER.info('Server started, waiting for connections...')
         #print('Server started, waiting for connections...')
