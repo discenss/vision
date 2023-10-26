@@ -11,6 +11,8 @@ if __name__ == '__main__':
     parser.add_argument('--project', type=str, help='file/dir/resultdir')
     parser.add_argument('--close', action='store_true', help='show results')
     parser.add_argument('--est', type=str, help='show results')
+    parser.add_argument('--id', type=str, help='show results')
+    parser.add_argument('--device', type=str, help='show results')
     args = parser.parse_args()
 
     address = ('10.100.94.60', 8443)
@@ -27,7 +29,7 @@ if __name__ == '__main__':
         exit(-1)
 
     if os.path.isfile(args.source):
-        conn.send('--source='+args.source + ' ' + '--project='+args.project + ' --est=' + args.est)
+        conn.send('--source='+args.source + ' ' + '--project='+args.project + ' --est=' + args.est + ' --id=' +args.id + ' --device='+args.device)
     elif os.path.isdir(args.source):
         for f in os.listdir(args.source):
             if f.endswith(".MP4") or f.endswith('.mp4'):
