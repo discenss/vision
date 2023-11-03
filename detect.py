@@ -116,7 +116,19 @@ def run(
     # Run inference
     model.warmup(imgsz=(1 if pt or model.triton else bs, 3, *imgsz))  # warmup
     seen, windows, dt = 0, [], (Profile(), Profile(), Profile())
+    skip = False
+    frame_counter = 0
     for path, im, im0s, vid_cap, s in dataset:
+        frame_counter = frame_counter + 1
+        if skip is False:
+            skip = True
+        else:
+            with open(f'{txt_path}.txt', 'a') as f:
+                f.write('Frame_' + f'_{frame_counter}' + '\n')
+                f.write('----\n')
+            skip = False
+            continue
+
         with dt[0]:
             im = torch.from_numpy(im).to(model.device)
             im = im.half() if model.fp16 else im.float()  # uint8 to fp16/32
@@ -180,7 +192,7 @@ def run(
                     s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
 
                 with open(f'{txt_path}.txt', 'a') as f:
-                    f.write('Frame_' + f'_{frame}' + '\n')
+                    f.write('Frame_' + f'_{frame_counter}' + '\n')
                 # Write results
                 annotator.box_label([0, 0, 1, 1], 'F:'+str(frame), color=colors(c, True))
                 for *xyxy, conf, cls in reversed(det):
@@ -238,7 +250,7 @@ def run(
                 s += f"{n} {names[int(c)]}{'s' * (n > 1)}, "  # add to string
         else:
             with open(f'{txt_path}.txt', 'a') as f:
-                f.write('Frame_' + f'_{frame}' + '\n')
+                f.write('Frame_' + f'_{frame_counter}' + '\n')
                 f.write('----\n')
 
 

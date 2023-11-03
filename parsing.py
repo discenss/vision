@@ -84,8 +84,8 @@ class OpenedCashNoClient:
             events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
 
 class OpenedCash:
-    MINLENGHT = 3 * 10
-    TRSHLD = 10 * 5
+    MINLENGHT = 3 * 10 / 2
+    TRSHLD = 10 * 5 / 2
 
     def __init__(self):
         self.lst = []
@@ -120,8 +120,8 @@ class OpenedCash:
             events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
 
 class NoWorkers:
-    MINLENGHT = 300 * 10
-    TRSHLD = 1 * 10
+    MINLENGHT = 300 * 10 / 2
+    TRSHLD = 1 * 10 / 2
 
     def __init__(self):
         self.lst = []
@@ -358,9 +358,11 @@ def create_report(file_path, orders, result, hours_difference):
     cust_queue = CustQueue()
     no_workers = NoWorkers()
     opened_cash = OpenedCash()
-    for f in frames:
-        no_workers.check(f)
-        opened_cash.check(f)
+    for i in range(0, len(frames)):
+        if (i % 2 == 0):
+            f = frames[i]
+            no_workers.check(f)
+            opened_cash.check(f)
 
     cust_queue.close()
     no_workers.close()
