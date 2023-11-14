@@ -24,8 +24,8 @@ class DB():
             con = psycopg2.connect(
                 user="postgres",
                 password="root",
-                host="10.100.94.60",
-                port="8080",
+                host="192.168.231.1",
+                port="5432",
                 database="postgres",
                 client_encoding='utf8'
             )
