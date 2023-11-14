@@ -84,8 +84,8 @@ class OpenedCashNoClient:
             events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
 
 class OpenedCash:
-    MINLENGHT = 3 * 10
-    TRSHLD = 10 * 5
+    MINLENGHT = 3 * 10 / 2
+    TRSHLD = 10 * 5 / 2
 
     def __init__(self):
         self.lst = []
@@ -120,8 +120,8 @@ class OpenedCash:
             events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
 
 class NoWorkers:
-    MINLENGHT = 300 * 10
-    TRSHLD = 1 * 10
+    MINLENGHT = 300 * 10 / 2
+    TRSHLD = 1 * 10 / 2
 
     def __init__(self):
         self.lst = []
@@ -321,14 +321,14 @@ def parse_poster(pay_report):
             counter = 0
             sum = 0
             for num, client in data.items():
-                if ('cash' in client['payments']):  # card
+                if ('payments' in client and 'cash' in client['payments']):  # card
                     if client['close'] != None:
                         datetime_obj = datetime.datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
                         t = datetime_obj.time()
                         counter = counter + 1
                         sum = sum + client['payments']['cash']
                         orders.append([t, True, False])
-                elif ('card' in client['payments']):
+                elif ('payments' in client and 'card' in client['payments']):
                     if client['close'] != None:
                         datetime_obj = datetime.datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
                         t = datetime_obj.time()
@@ -358,9 +358,11 @@ def create_report(file_path, orders, result, hours_difference):
     cust_queue = CustQueue()
     no_workers = NoWorkers()
     opened_cash = OpenedCash()
-    for f in frames:
-        no_workers.check(f)
-        opened_cash.check(f)
+    for i in range(0, len(frames)):
+        if (i % 2 == 0):
+            f = frames[i]
+            no_workers.check(f)
+            opened_cash.check(f)
 
     cust_queue.close()
     no_workers.close()
@@ -456,7 +458,7 @@ def create_report(file_path, orders, result, hours_difference):
         bookmarks.append((0,
                           'Already opened in ' + str(get_time_for_frames(0, hours_difference))))
         text_report.append(u'🔓Уже открыто: ' + str(get_time_for_frames(0, hours_difference)))
-        data['opening_time'] = str(get_time_for_frames(len(frames), hours_difference))
+        data['opening_time'] = str(get_time_for_frames(0, hours_difference))
         text_report.append(u' Не замечено отсутствие на рабочем месте')
         bookmarks.append((0,
                           u'Still working at : ' + str(get_time_for_frames(len(frames), hours_difference))))
@@ -514,19 +516,17 @@ def parse_report(report_file, est_name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
     video_file =  r'Z:\testipcam\frankjay\video\1280\6_2023-10-09_07-00-00.mp4'
-    report_file = r"Z:\testipcam\frankjay\video\1280\6_2023-10-09_07-00-00.json"
+    report_file = r"Z:\testipcam\frankjay\video\1280\6_2023-10-22_07-00-00.json"
     orders, sum = parse_poster(report_file)
     #db = DB()
     frames_file = r'E:\dev\sources\testing\exp228\6_2023-10-09_07-00-00.txt'
 
-    text_base_report = create_report(frames_file, orders, video_file[:-4] + '.xspf', 7)
-    print(text_base_report)
-    #result = '\n'.join(text_base_report)
-    #db.set_base_report('Pekarnya', '2023-08-05', result)
-    #print(result)
-    #create_xspf_playlist('2_2023-07-12_08-00-00.mp4', bookmarks, "2_2023-07-12_08-00-00.xspf")
-    #frames_file = r"E:\dev\sources\testing\exp25\labels\3_2023-08-13_11-00-00.txt"
-    #orders = parse_poster(r"Z:\testipcam\MaxBeer\video\1280\3_2023-08-13_11-00-00.json")
-    #print(create_report(frames_file, orders, r"E:\dev\sources\testing\exp25\3_2023-08-13_11-00-00.xspf"))
+    data = create_report(frames_file, orders, video_file[:-4] + '.xspf', 7)
+    time1 = datetime.datetime.strptime(data['opening_time'], "%H:%M:%S")
+    time2 = datetime.datetime.strptime(data['closing_time'], "%H:%M:%S")
+
+    # Вычисление разницы между двумя временами
+    time_difference = time2 - time1
+    print(time_difference)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

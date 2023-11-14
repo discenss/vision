@@ -25,13 +25,17 @@ base_rep = """
 🔓Закрыто: %s \n
 🧍‍♂️ Нет на рабочем месте:
 %s
-\n🧍‍♂️Общее время отсутствия: %s мин
+\n🧍‍♂️Общее время отсутствия: %s мин\n
+  Общее время работы %s
+"""
+
+sells_rep = """
 \n📉Количество продаж проекта:
-%s
+%s 
 
 Итого продаж: %s 
 🧾Средний чек проекта: %s грн.
-💸Выручка : %s грн
+💸Выручка : %s грн 
 """
 
 def get_params():
@@ -83,31 +87,36 @@ def generate_report_text(report_data):
 
 def f(x, y):
 
-    weight = get_params()['model_path']
+
     db = DB()
     args = y.split()
 
     parser = argparse.ArgumentParser()
     parser.add_argument("--project", type=str, help="Path to project")
     parser.add_argument("--source", type=str, help="Path to source")
-    parser.add_argument("--est", type=str, help="Path to source")
-    parser.add_argument("--id", type=str, help="Path to source")
+    parser.add_argument("--est", type=str, help="Est id")
+    parser.add_argument("--id", type=str, help="Server id")
+    parser.add_argument("--device", type=str, default='0', help="index device")
+
     parsed_args = parser.parse_args(args)
 
     project_path = parsed_args.project
     source_path = parsed_args.source
     est_name = parsed_args.est
     server_id = parsed_args.id
+    device = parsed_args.device
 
     converted_date = get_date_from_file(source_path)
     if converted_date == False:
         return str(y)
     try:
+        weight = db.get_weights()
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task started with params ' + str(y))
-        db.set_start_task( server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.est)
-        frames_file = run(weights=weight, source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True, nosave=True, device=get_params()['device'])
-        db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.est)
-        #frames_file = r"E:\dev\sources\testing\exp183\4_2023-09-29_07-00-00.txt"
+        db.set_start_task( server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
+        frames_file = run(weights=weight, source=source_path, project=r'E:\dev\sources\testing', imgsz=(1280, 1280), save_txt=True, nosave=True, device=device)
+        db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
+        os.remove(weight)
+        #frames_file = r"E:\dev\sources\testing\exp243\3_2023-10-11_11-00-00.txt"
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task finished with params ' + str(y))
         orders, sum = parse_report(source_path[:-3] + 'json', est_name)
         data = create_report(frames_file, orders, source_path[:-4] + '.xspf', get_time_from_file(source_path).hour)
@@ -119,16 +128,23 @@ def f(x, y):
             count = 1
         away_periods_formatted = "\n".join(data['away_periods'])
         activities_formatted = "\n".join(data['activities'])
+        time_open = datetime.datetime.strptime(data['opening_time'], "%H:%M:%S")
+        time_close = datetime.datetime.strptime(data['closing_time'], "%H:%M:%S")
         formatted_report = base_rep % (
             data['opening_time'],
             data['closing_time'],
             away_periods_formatted,
             data['total_away'],
-            activities_formatted,
-            count,
-            int(sum/count),
-            sum
+            str(time_close - time_open)
         )
+
+        if len(orders) > 0:
+            formatted_report = formatted_report + sells_rep % (
+                activities_formatted,
+                count,
+                int(sum / count),
+                sum
+            )
         users = db.get_users_list_for_est(est_name)
 
         user_message = f"📈 Отчёт за дату: {converted_date}\n Заведение: {est_name}\n" + formatted_report
@@ -138,7 +154,7 @@ def f(x, y):
             tg_id = db.get_telegram_id(user)
             bot.send_message(tg_id, user_message)
     except Exception as e:
-        LOGGER.info(e + ': ERROR ')
+        LOGGER.info(f'ERROR in task {source_path}: ' + str(e))
 
 
     return str(y)
@@ -150,8 +166,8 @@ def clb(x):
 def main():
 
 
-    with Pool(processes=int(get_params()['threads'])) as pool:
-        address = ('10.100.94.60', 8443)  # family is deduced to be 'AF_INET'
+    with Pool(processes=5) as pool:
+        address = ('127.0.0.1', 1111)  # family is deduced to be 'AF_INET'
         listener = Listener(address)
         LOGGER.info('Server started, waiting for connections...')
         #print('Server started, waiting for connections...')

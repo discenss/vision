@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 #import fdb
+import os
+
 import psycopg2
 from psycopg2 import OperationalError
 from datetime import datetime
 from utils.general import LOGGER
-
+import tempfile
 def is_valid_date_format(s):
     try:
         datetime.strptime(s, '%Y-%m-%d')
@@ -264,7 +266,7 @@ class DB():
         ser_ip = ''
         ser_id = ''
         for r in rows:
-            id, desc, ip, threads = r
+            id, desc, ip, threads, dev = r
 
             if ip in id_not_res:
                 continue
@@ -272,8 +274,9 @@ class DB():
                 best_tasks = threads - self.get_curent_servers_tasks_count(id)
                 ser_ip = ip
                 ser_id = id
+                dev_id = dev
 
-        return ser_ip, ser_id
+        return ser_ip, ser_id, dev_id
 
     def get_server_ip_by_id(self, id):
         self.cur = self.con.cursor()
@@ -421,21 +424,42 @@ class DB():
         self.con.commit()
 
     def set_end_task(self, server_id, est_id, path):
-        update_query = """
-            UPDATE public.tasks
-            SET end_time = %s
-            WHERE server_id = %s
-            AND est_id = %s
-            AND "path" = %s
-            AND begin_time IS NOT NULL;
-        """
-        self.cur.execute(update_query, (datetime.now().time(), server_id, est_id, path))
+        delete_query = """
+                    DELETE FROM public.tasks
+                    WHERE server_id = %s
+                    AND est_id = %s
+                    AND "path" = %s
+                    AND begin_time IS NOT NULL;
+                """
+        self.cur.execute(delete_query, (server_id, est_id, path))
 
         # Подтверждение транзакции
         self.con.commit()
 
+    def db_set_date_license_expired(self, date, est_id):
+        self.cur = self.con.cursor()
+        update_query = f"""
+        UPDATE public.establishments
+        SET datelicense_expire = '{date}' 
+        WHERE establishments_id = {est_id};
+        """
+        self.cur.execute(update_query)
+        self.con.commit()
 
+    def get_weights(self):
+        self.cur = self.con.cursor()
+        self.cur.execute("SELECT dbpath FROM public.settings WHERE setting_id = %s", (1,))
+        row = self.cur.fetchone()
 
+        if row:
+            file_data = row[0]
+
+            # Создание временного файла и запись в него данных
+            with tempfile.NamedTemporaryFile(delete=False) as temp_file:
+                temp_file_name = temp_file.name
+                temp_file.write(file_data.tobytes())
+        os.rename(temp_file_name, temp_file_name + '.pt')
+        return  temp_file_name + '.pt'
 def main():
     db = DB()
 
@@ -462,9 +486,13 @@ def main():
     #db.set_start_task("Test1", '1', '1', 'path4')
     #db.set_start_task("Test1", '1', '1', 'path5')
     print(db.get_server_for_task())
-    db.set_start_task("Test1", '1', '1', 'path6')
+    #db.set_start_task("Test1", '1', '1', 'path6')
 
-    db.set_end_task("Test1", '1', '1', 'path')
+    #db.set_end_task("Test1", '1', '1', 'path')
+    temp = db.get_weights()
+    print(temp)
+    os.remove(temp)
+
 
 if __name__ == '__main__':
     main()

@@ -7,11 +7,9 @@ import time
 from utils.general import LOGGER
 from db import DB
 import re
-from datetime import datetime
-from datetime import date
 from bot import send_bot_message
-
-res=r'E:\dev\sources\testing'
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 days_untin_final = "У вас осталось %s дней до окончания лицензии\n"
 users_money = "У вас на счету %s\n"
@@ -23,7 +21,6 @@ def get_date_from_file(source_path):
         date_string = match.group(1)
         converted_date = datetime.strptime(date_string, '%Y-%m-%d').date()
         return converted_date
-        #print("Извлеченная дата:", converted_date)
     else:
         return False
 
@@ -54,14 +51,21 @@ def run_processing():
                                 continue
 
                             while True:
-                                ip_server, id_server = db.get_server_for_task(list_not_resp)
+                                ip_server, id_server, device = db.get_server_for_task(list_not_resp)
                                 if len(ip_server) < 1:
                                     return ''
 
                                 try:
                                     address = (ip_server, 8443)
                                     conn = Client(address)
-                                    command = f"--source={os.path.join(path, file)} --project={res} --est={name} --id={id_server}"
+                                    if os.path.isdir(os.path.join(path,'frames')) is False:
+                                        try:
+                                            os.mkdir(os.path.join(path,'frames'))
+                                        except:
+                                            LOGGER.info(
+                                                str(datetime.now()[:-7]) + " Not connected to server " + ip_server)
+
+                                    command = f"--source={os.path.join(path, file)} --project={os.path.join(path,'frames')} --est={name} --id={id_server} --device={device}"
                                     print(command)
                                     conn.send(command)
                                     conn.send('close')
@@ -81,17 +85,18 @@ def run_processing():
 def license_check():
     db = DB()
     rows = db.get_full_est_list()
-    rows = db.cur.fetchall()
+    #rows = db.cur.fetchall()
     for i in range(len(rows)):
         id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[i]
         days_difference = (date - datetime.now().date()).days
         lic_name, lic_price = db.get_license_name_and_price(license_id)
         tg_id = db.get_telegram_id(owner_id)
         tg_user_money = db.get_money_for_tg_user(tg_id)
-        if ( days_difference < 7 and days_difference > 0 and lic_name == "Test"):
+        if ( days_difference < 7 and days_difference >= 0 and lic_name == "Test"):
             result_string = days_untin_final % (days_difference)
             if (tg_user_money == 0):
-                send_bot_message(result_string + " У вас на счету 0 грн. Пополните счет что бы продолжить использовать сервис", tg_id)
+                send_bot_message(result_string + " У вас на счету 0 грн. Пополните счет и обратитесь к оператору для согласования тарифа", tg_id)
+
         elif ( days_difference < 7 and days_difference > 0 and lic_name !="Test"):
             money = db.get_money_for_tg_user(tg_id)
             if (money < lic_price):
@@ -99,18 +104,23 @@ def license_check():
                 result_string = result_string + users_money % (money) + license_name_and_price %(name, lic_name, lic_price - money)
                 send_bot_message(result_string, tg_id)
 
-        elif (days_difference == 0 and lic_name != "Test"):
+        elif (days_difference <= 0 and lic_name != "Test"):
             if (tg_user_money >= lic_price ):
                 db.addmomey_for_tg_user(tg_id, lic_price * -1)
                 result_string = paying_for_license %(lic_price, lic_name, name, db.get_money_for_tg_user(tg_id))
+                today = datetime.today()
+                one_month_later = today + relativedelta(months=1)
+                db.db_set_date_license_expired(one_month_later.date(), id)
                 send_bot_message(result_string, tg_id)
+
 
 # Планирование задачи на выполнение каждый день в определенное время
 schedule.every().day.at("03:00").do(run_processing)
+schedule.every().day.at("03:00").do(license_check)
 
 def main():
     #license_check()
-    run_processing()
+    #run_processing()
     while True:
         schedule.run_pending()
         time.sleep(1)
