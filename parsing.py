@@ -317,7 +317,7 @@ def parse_poster(pay_report):
     orders = []
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
-            data = json.load(f, encoding='utf-8')
+            data = json.load(f)
             counter = 0
             sum = 0
             for num, client in data.items():
