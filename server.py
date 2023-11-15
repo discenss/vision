@@ -172,7 +172,7 @@ def main():
 
 
     with Pool(processes=int(get_params(sys.argv[1])['threads'])) as pool:
-        address = (get_params()['ip'], int(get_params(sys.argv[1])['port']))  # family is deduced to be 'AF_INET'
+        address = (get_params(sys.argv[1])['ip'], int(get_params(sys.argv[1])['port']))  # family is deduced to be 'AF_INET'
         listener = Listener(address)
         LOGGER.info('Server started, waiting for connections...')
         #print('Server started, waiting for connections...')
