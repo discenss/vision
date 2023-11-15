@@ -293,7 +293,7 @@ def parse_aiko(pay_report):
     counter = 0
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
-            data = json.load(f, encoding='utf-8')
+            data = json.load(f)
             for client in data['orders']:
                 if (client['order']['payments'] != None and client['order']['payments'][0]['paymentType']['kind'] == 'External'): #card
                     if client['order']['whenClosed'] != None:
