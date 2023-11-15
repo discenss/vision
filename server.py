@@ -1,22 +1,17 @@
-import multiprocessing.pool
 from multiprocessing import Pool, TimeoutError
-from subprocess import Popen, PIPE
 
 import os
-import time
-import subprocess
 from multiprocessing.connection import Listener
 import sys
 import datetime
-from detect import run
 import argparse
 from parsing import create_report, parse_report
 from db import DB
 import telebot
-from telebot import types
 import re
-import logging
 from utils.general import LOGGER
+import traceback
+from detect import run
 
 bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 
@@ -113,13 +108,17 @@ def f(x, y):
         weight = db.get_weights()
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task started with params ' + str(y))
         db.set_start_task( server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
-        frames_file = run(weights=weight, source=source_path, project=r'E:\dev\sources\testing', imgsz=(1280, 1280), save_txt=True, nosave=True, device=device)
+        frames_file = run(weights=weight, source=source_path, project=r'testing', imgsz=(1280, 1280), save_txt=True, nosave=True, device=device)
         db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
         os.remove(weight)
-        #frames_file = r"E:\dev\sources\testing\exp243\3_2023-10-11_11-00-00.txt"
+        #frames_file = r"E:\dev\vision\testing\exp27\3_2023-11-08_11-00-00.txt"
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task finished with params ' + str(y))
         orders, sum = parse_report(source_path[:-3] + 'json', est_name)
-        data = create_report(frames_file, orders, source_path[:-4] + '.xspf', get_time_from_file(source_path).hour)
+        time_from_file = get_time_from_file(source_path)
+        print(time_from_file)
+        if time_from_file is False:
+            raise ValueError("Ошибка получения времени из файла")
+        data = create_report(frames_file, orders, source_path[:-4] + '.xspf', time_from_file.hour)
         data['sum'] = str(sum)
         count = 1
         if len(orders) > 0:
@@ -154,8 +153,8 @@ def f(x, y):
             tg_id = db.get_telegram_id(user)
             bot.send_message(tg_id, user_message)
     except Exception as e:
-        LOGGER.info(f'ERROR in task {source_path}: ' + str(e))
-
+        LOGGER.info(str(datetime.datetime.now())[:-7] + f'ERROR in task {source_path}: ' + str(e))
+        traceback.print_exc()
 
     return str(y)
 
@@ -167,7 +166,7 @@ def main():
 
 
     with Pool(processes=5) as pool:
-        address = ('127.0.0.1', 1111)  # family is deduced to be 'AF_INET'
+        address = ('10.100.94.60', 8443)  # family is deduced to be 'AF_INET'
         listener = Listener(address)
         LOGGER.info('Server started, waiting for connections...')
         #print('Server started, waiting for connections...')
