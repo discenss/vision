@@ -118,6 +118,7 @@ def run(
     seen, windows, dt = 0, [], (Profile(), Profile(), Profile())
     skip = False
     frame_counter = 0
+    txt_path = str(save_dir / (os.path.basename(source)[:-4]+'.txt'))
     for path, im, im0s, vid_cap, s in dataset:
         frame_counter = frame_counter + 1
         if skip is False:
