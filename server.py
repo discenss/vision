@@ -38,10 +38,10 @@ sells_rep = """
 💸Выручка : %s грн 
 """
 
-def get_params():
+def get_params(file_name):
     srv_cfg = {}
     if ( len(sys.argv) == 2 and os.path.isfile( sys.argv[1]) ):
-        with open(r'serv.cfg', 'rt') as f:
+        with open(file_name, 'rt') as f:
             for line in f.read().split('\n'):
                 srv_cfg[line.split(' & ')[0]] = line.split('&')[1]
     return srv_cfg
@@ -166,8 +166,8 @@ def clb(x):
 def main():
 
 
-    with Pool(processes=int(get_params()['threads'])) as pool:
-        address = (get_params()['ip'], int(get_params()['ip']))  # family is deduced to be 'AF_INET'
+    with Pool(processes=int(get_params(sys.argv[1])['threads'])) as pool:
+        address = (get_params()['ip'], int(get_params(sys.argv[1])['port']))  # family is deduced to be 'AF_INET'
         listener = Listener(address)
         LOGGER.info('Server started, waiting for connections...')
         #print('Server started, waiting for connections...')
