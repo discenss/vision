@@ -35,10 +35,13 @@ def run_processing():
         id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[i]
         if path!= None and os.path.isdir(path):
             for file in os.listdir(path):
-                if file.endswith('.mp4') and get_date_from_file(file)\
-                        and os.path.isfile(os.path.join(path, file)[:-3]+'json'):
+                if file.endswith('.mp4') and get_date_from_file(file):
+                        #and os.path.isfile(os.path.join(path, file)[:-3]+'json'):
                     date_string = get_date_from_file(file)
                     if date_string:
+                        days_difference = (datetime.now().date() - date_string).days
+                        if days_difference > 2:
+                            continue
                         date = str(date_string)
                         # Формируем запрос на выборку данных из таблицы по дате
                         query = f"SELECT * FROM REPORT WHERE REALDATE = '{date}' AND ESTABLISHMENT_ID = {id}"
@@ -120,7 +123,7 @@ schedule.every().day.at("03:00").do(license_check)
 
 def main():
     #license_check()
-    #run_processing()
+    run_processing()
     while True:
         schedule.run_pending()
         time.sleep(1)

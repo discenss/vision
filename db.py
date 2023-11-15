@@ -218,8 +218,8 @@ class DB():
         self.cur.execute(f"SELECT * FROM license")
         rows = self.cur.fetchall()
         for r in rows:
-            id, name, adress, license_id = r
-            lic.append(str(license_id) + " " + name)
+            id, name, license_id, owner_id = r
+            lic.append(str(owner_id) + " " + name )
 
         return lic
     def get_full_license_list(self):
