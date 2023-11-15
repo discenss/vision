@@ -434,6 +434,10 @@ class EstablishmentsTableWidget(QTableWidget):
         layout.addWidget(QLabel("Video path:"))
         layout.addWidget(self.video_input)
 
+        self.date_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Date expire"))
+        layout.addWidget(self.date_input)
+
         submit_button = QPushButton("Применить", dialog)
         submit_button.clicked.connect(dialog.accept)
         layout.addWidget(submit_button)
@@ -449,6 +453,7 @@ class EstablishmentsTableWidget(QTableWidget):
             user = self.user_input.text()
             rep_input = self.rep_input.text()
             video_input = self.video_input.text()
+            date_input = self.date_input.text()
 
             #user_name = db.get_user_name_by_id(user)
             user_id = db.get_user_id_by_tg_id(user)
@@ -459,8 +464,8 @@ class EstablishmentsTableWidget(QTableWidget):
 
 
             # Добавление записи в таблицу ESTABLISHMENTS
-            db.cur.execute(f"INSERT INTO ESTABLISHMENTS (\"NAME\", ADDRESS, PASS, LICENSE_ID, OWNER_ID, REPORT_TYPE, VIDEO_PATH) VALUES"
-                        f" ('{name}', '{address}', '{passw}', '{license}', '{user_id}' , '{rep_input}', '{video_input}')")
+            db.cur.execute(f"INSERT INTO ESTABLISHMENTS (\"NAME\", ADDRESS, PASS, LICENSE_ID, OWNER_ID, REPORT_TYPE, VIDEO_PATH, datelicense_expire) VALUES"
+                        f" ('{name}', '{address}', '{passw}', '{license}', '{user_id}' , '{rep_input}', '{video_input}', '{date_input}' )")
             db.con.commit()
             self.refresh_table()
 
@@ -503,6 +508,10 @@ class EstablishmentsTableWidget(QTableWidget):
         layout.addWidget(QLabel("Video path:"))
         layout.addWidget(self.video_input)
 
+        self.date_input = QLineEdit(dialog)
+        layout.addWidget(QLabel("Date expire"))
+        layout.addWidget(self.date_input)
+
         # Заполните начальные значения из выбранной строки:
         self.name_input.setText(self.item(row, 1).text())
         self.address_input.setText(self.item(row, 2).text())
@@ -510,7 +519,7 @@ class EstablishmentsTableWidget(QTableWidget):
         self.user_input.setText(self.item(row, 5).text())
         self.rep_input.setText(self.item(row, 6).text())
         self.video_input.setText(self.item(row, 7).text())
-
+        self.date_input.setText(self.item(row, 8).text())
         # Добавьте аналогичные виджеты для всех других полей
 
         submit_button = QPushButton("Применить", dialog)
@@ -528,6 +537,7 @@ class EstablishmentsTableWidget(QTableWidget):
             user = self.user_input.text()
             rep_input = self.rep_input.text()
             video_input = self.video_input.text()
+            date_input = self.date_input.text()
 
             user_id = db.get_user_id_by_tg_id(user)
             if user_id is None:
@@ -538,7 +548,7 @@ class EstablishmentsTableWidget(QTableWidget):
             establishment_id = int(
                 self.item(row, 0).text())
             db.cur.execute(
-                f"UPDATE ESTABLISHMENTS SET \"NAME\" = '{name}', ADDRESS = '{address}', PASS = '{passw}', LICENSE_ID = '{license}', OWNER_ID = '{user_id}', REPORT_TYPE = '{rep_input}', VIDEO_PATH = '{video_input}'  WHERE ESTABLISHMENTS_ID = {establishment_id} ")
+                f"UPDATE ESTABLISHMENTS SET \"NAME\" = '{name}', ADDRESS = '{address}', PASS = '{passw}', LICENSE_ID = '{license}', OWNER_ID = '{user_id}', REPORT_TYPE = '{rep_input}', VIDEO_PATH = '{video_input}', datelicense_expire = '{date_input}'  WHERE ESTABLISHMENTS_ID = {establishment_id} ")
             db.con.commit()
             self.refresh_table()
 
