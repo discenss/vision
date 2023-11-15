@@ -18,10 +18,10 @@ bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 base_rep = """
 🔓Открытие: %s
 🔓Закрыто: %s \n
+  Общее время работы %s\n
 🧍‍♂️ Нет на рабочем месте:
 %s
 \n🧍‍♂️Общее время отсутствия: %s мин\n
-  Общее время работы %s
 """
 
 sells_rep = """
@@ -138,9 +138,9 @@ def f(x, y):
         formatted_report = base_rep % (
             data['opening_time'],
             data['closing_time'],
+            str(time_close - time_open),
             away_periods_formatted,
-            data['total_away'],
-            str(time_close - time_open)
+            data['total_away']
         )
 
         if len(orders) > 0:
@@ -159,7 +159,7 @@ def f(x, y):
             tg_id = db.get_telegram_id(user)
             bot.send_message(tg_id, user_message)
     except Exception as e:
-        LOGGER.info(str(datetime.datetime.now())[:-7] + f'ERROR in task {source_path}: ' + str(e))
+        LOGGER.info(str(datetime.datetime.now())[:-7] + f': ERROR in task {source_path}: ' + str(e))
         traceback.print_exc()
 
     return str(y)
