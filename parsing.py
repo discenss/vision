@@ -511,7 +511,7 @@ def parse_report(report_file, est_name):
     elif report_type == "poster":
         return parse_poster(report_file)
 
-    return orders, 0, 0
+    return orders, 0
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
