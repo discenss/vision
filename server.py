@@ -35,10 +35,16 @@ sells_rep = """
 
 def get_params(file_name):
     srv_cfg = {}
-    if ( len(sys.argv) == 2 and os.path.isfile( sys.argv[1]) ):
+    if len(sys.argv) == 2 and os.path.isfile(sys.argv[1]):
         with open(file_name, 'rt') as f:
-            for line in f.read().split('\n'):
-                srv_cfg[line.split(' & ')[0]] = line.split('&')[1]
+            for line in f:
+                line = line.strip()
+                # Проверяем, что строка не пустая и содержит разделитель
+                if line and ' & ' in line:
+                    parts = line.split(' & ')
+                    if len(parts) == 2:
+                        key, value = parts
+                        srv_cfg[key] = value
     return srv_cfg
 
 def get_date_from_file(source_path):
