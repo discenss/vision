@@ -79,21 +79,24 @@ def run_processing():
                                 except OSError as e:
                                     LOGGER.error(
                                         f"{datetime.now():%Y-%m-%d %H:%M:%S} - Failed to create directory: {e}")
+                                    break
                                 except ConnectionError as e:
                                     LOGGER.error(
                                         f"{datetime.now():%Y-%m-%d %H:%M:%S} - Not connected to server {ip_server}: {e}")
                                     list_not_resp.append(ip_server)
+                                    break
                                 except Exception as e:
                                     LOGGER.error(
                                         f"{datetime.now():%Y-%m-%d %H:%M:%S} - An unexpected error occurred: {e}")
                                     list_not_resp.append(ip_server)
+                                    break
 
                         except:
                             pass
 
     else:
         return None
-    
+
 def license_check():
     db = DB()
     rows = db.get_full_est_list()
