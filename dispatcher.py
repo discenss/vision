@@ -75,6 +75,7 @@ def run_processing():
                                     conn.send(command)
                                     conn.send('close')
                                     conn.close()
+                                    break
                                 except OSError as e:
                                     LOGGER.error(
                                         f"{datetime.now():%Y-%m-%d %H:%M:%S} - Failed to create directory: {e}")
@@ -92,7 +93,7 @@ def run_processing():
 
     else:
         return None
-def license_check():
+d   ef license_check():
     db = DB()
     rows = db.get_full_est_list()
     #rows = db.cur.fetchall()
