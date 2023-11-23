@@ -93,7 +93,8 @@ def run_processing():
 
     else:
         return None
-d   ef license_check():
+    
+def license_check():
     db = DB()
     rows = db.get_full_est_list()
     #rows = db.cur.fetchall()
