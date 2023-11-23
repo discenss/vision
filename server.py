@@ -191,7 +191,7 @@ def main():
                         break
                     # logging.info('Task added in pool with params -' + msg)
                     pool.apply_async(f, (os.getpid(), msg))
-                except EOFError:
+                except EOFError as e:
                     # Handle client disconnect
                     LOGGER.error("EOF Error: %s", e)
                     break
