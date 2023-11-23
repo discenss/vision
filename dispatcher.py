@@ -66,10 +66,7 @@ def run_processing():
                                     address = (ip_server, 8443)
                                     conn = Client(address)
 
-                                    frames_path = os.path.join(path, 'frames')
-                                    os.makedirs(frames_path, exist_ok=True)
-
-                                    command = f"--source={os.path.join(path, file)} --project={frames_path} --est={name} --id={id_server} --device={device}"
+                                    command = f"--source={os.path.join(path, file)} --est={name} --id={id_server} --device={device}"
                                     print(command)
 
                                     conn.send(command)
