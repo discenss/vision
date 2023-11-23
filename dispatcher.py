@@ -59,26 +59,33 @@ def run_processing():
                                     return ''
 
                                 try:
+                                    ip_server, id_server, device = db.get_server_for_task(list_not_resp)
+                                    if not ip_server:
+                                        return ''
+
                                     address = (ip_server, 8443)
                                     conn = Client(address)
-                                    if os.path.isdir(os.path.join(path,'frames')) is False:
-                                        try:
-                                            os.mkdir(os.path.join(path,'frames'))
-                                        except:
-                                            LOGGER.info(
-                                                str(datetime.now()[:-7]) + " Not connected to server " + ip_server)
 
-                                    command = f"--source={os.path.join(path, file)} --project={os.path.join(path,'frames')} --est={name} --id={id_server} --device={device}"
+                                    frames_path = os.path.join(path, 'frames')
+                                    os.makedirs(frames_path, exist_ok=True)
+
+                                    command = f"--source={os.path.join(path, file)} --project={frames_path} --est={name} --id={id_server} --device={device}"
                                     print(command)
+
                                     conn.send(command)
                                     conn.send('close')
                                     conn.close()
-                                    break
-                                except:
-                                    LOGGER.info(str(datetime.now()[:-7]) + " Not connected to server " + ip_server)
+                                except OSError as e:
+                                    LOGGER.error(
+                                        f"{datetime.now():%Y-%m-%d %H:%M:%S} - Failed to create directory: {e}")
+                                except ConnectionError as e:
+                                    LOGGER.error(
+                                        f"{datetime.now():%Y-%m-%d %H:%M:%S} - Not connected to server {ip_server}: {e}")
                                     list_not_resp.append(ip_server)
-                                    pass
-                                    continue
+                                except Exception as e:
+                                    LOGGER.error(
+                                        f"{datetime.now():%Y-%m-%d %H:%M:%S} - An unexpected error occurred: {e}")
+                                    list_not_resp.append(ip_server)
 
                         except:
                             pass

@@ -175,22 +175,37 @@ def main():
         address = (get_params(sys.argv[1])['ip'], int(get_params(sys.argv[1])['port']))  # family is deduced to be 'AF_INET'
         listener = Listener(address)
         LOGGER.info('Server started, waiting for connections...')
-        #print('Server started, waiting for connections...')
-        while True:
-            conn = listener.accept()
+        running = True
+
+        def handle_connection(conn):
             while True:
-                msg = conn.recv()
-                if msg == 'close':
-                    conn.close()
+                try:
+                    msg = conn.recv()
+                    if msg == 'close':
+                        conn.close()
+                        break
+                    if msg == 'close_server':
+                        global running
+                        running = False
+                        conn.close()
+                        break
+                    # logging.info('Task added in pool with params -' + msg)
+                    pool.apply_async(f, (os.getpid(), msg))
+                except EOFError:
+                    # Handle client disconnect
+                    LOGGER.error("EOF Error: %s", e)
                     break
-                if msg == 'close_server':
-                    conn.close()
-                    exit(0)
-                #print('Task added in pool with params -' + msg)
-                pool.apply_async(f, (os.getpid(), msg))
+                except Exception as e:
+                    LOGGER.error("Error during message receiving: %s", e)
+                    break
 
-    print(str(datetime.datetime.now()) + ' Server started, waiting for connections')
+        while running:
+            conn = listener.accept()
+            handle_connection(conn)
 
+        # Очистка ресурсов после завершения работы
+        pool.close()
+        pool.join()
 
 if __name__ == '__main__':
     #bot.polling(none_stop=True, interval=0)  # обязательная для работы бота часть
