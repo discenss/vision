@@ -4,38 +4,72 @@ import argparse
 #from moviepy.editor import VideoFileClip, concatenate_videoclips
 
 
+import argparse
+import os
+from multiprocessing.connection import Client
+
+def read_config(file_name):
+    config = {}
+    with open(file_name, 'r') as file:
+        for line in file:
+            key, value = line.strip().split(' & ')
+            config[key] = value
+    return config
+
 if __name__ == '__main__':
+    config = read_config('serv.cfg')
+    ip = config.get('ip', '127.0.0.1')
+    port = int(config.get('port', 8443))
+
     parser = argparse.ArgumentParser()
-    #parser.add_argument('--weights', nargs='+', type=str, default=ROOT / 'yolov5s.pt', help='model path or triton URL')
     parser.add_argument('--source', type=str, help='file/dir/FILE.MP4)')
     parser.add_argument('--project', type=str, help='file/dir/resultdir')
-    parser.add_argument('--close', action='store_true', help='show results')
-    parser.add_argument('--est', type=str, help='show results')
-    parser.add_argument('--id', type=str, help='show results')
-    parser.add_argument('--device', type=str, help='show results')
+    parser.add_argument('--close', action='store_true', help='close server')
+    parser.add_argument('--est', type=str, help='est id')
+    parser.add_argument('--id', type=str, help='server id')
+    parser.add_argument('--device', type=str, default='0', help='device id')
+    parser.add_argument('--debug', default=False, action='store_true', help='debugging mode')
+
     args = parser.parse_args()
 
-    address = ('10.100.94.60', 8443)
+    address = (ip, port)
     conn = Client(address)
 
-
-    if args.close is True:
+    if args.close:
         conn.send('close_server')
+        conn.close()
         exit(0)
 
-    if args.project is None or os.path.isdir(args.project) == False:
-        print('Dest project dir is not correct')
+    if args.source is None:
+        print('Source is not specified')
         conn.send('close')
+        conn.close()
         exit(-1)
 
+    command_parts = []
+
     if os.path.isfile(args.source):
-        conn.send('--source='+args.source + ' ' + '--project='+args.project + ' --est=' + args.est + ' --id=' +args.id + ' --device='+args.device)
-    elif os.path.isdir(args.source):
-        for f in os.listdir(args.source):
-            if f.endswith(".MP4") or f.endswith('.mp4'):
-                conn.send('--source=' + os.path.join(args.source, f) + ' ' + '--project=' + args.project)
+        command_parts.append('--source=' + args.source)
     else:
         print('Source file is not correct')
+        conn.send('close')
+        conn.close()
+        exit(-1)
+
+    if args.project:
+        command_parts.append('--project=' + args.project)
+
+    if args.est:
+        command_parts.append('--est=' + args.est)
+    if args.id:
+        command_parts.append('--id=' + args.id)
+    if args.device:
+        command_parts.append('--device=' + args.device)
+    if args.debug:
+        command_parts.append('--debug')
+
+    command = ' '.join(command_parts)
+    conn.send(command)
 
     conn.send('close')
     conn.close()
