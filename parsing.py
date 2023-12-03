@@ -21,20 +21,12 @@ from utils.general import LOGGER
 import cv2
 FPS = 10.00
 HOURS_DIFFERENCE = 8
-
+BEFORE_OPENED_CASH_SECONDS = 20
 class Event :
-    def __init__(self):
-        self.begin = 0
-        self.end = 0
-        self.type = 0
-
-    def __init__(self, b, e, t):
+    def __init__(self, b = 0, e = 0, t = 0):
         self.begin = b
         self.end = e
         self.type = t
-
-events = []
-bookmarks = []
 
 BARCOUNTER = 0
 PERSON = 1
@@ -71,7 +63,6 @@ class OpenedCashNoClient:
             self.last = frame.num
         elif self.treshhold >= self.TRSHLD:
             if self.lght > self.MINLENGHT:
-                #self.items.append({'begin': self.first, 'end': self.last})
                 events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
                 self.last = 0
                 self.first = 0
@@ -107,8 +98,8 @@ class OpenedCash:
             self.last = frame.num
         elif self.treshhold >= self.TRSHLD:
             if self.lght > self.MINLENGHT:
-                #self.items.append({'begin': self.first, 'end': self.last})
-                events.append(Event(self.first, self.last, OPENEDCASH_CLIENT))
+                self.items.append({'begin': self.first, 'end': self.last})
+                #events.append(Event(self.first, self.last, OPENEDCASH_CLIENT))
                 self.last = 0
                 self.first = 0
             self.lght = 0
@@ -116,8 +107,8 @@ class OpenedCash:
 
     def close(self):
         if self.lght > self.MINLENGHT:
-            #self.items.append({'begin': self.first, 'end': self.last})
-            events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
+            self.items.append({'begin': self.first, 'end': self.last})
+            #events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
 
 class NoWorkers:
     MINLENGHT = 300 * 10 / 2
@@ -315,11 +306,11 @@ def parse_aiko(pay_report):
 
 def parse_poster(pay_report):
     orders = []
+    sum = 0
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
             data = json.load(f)
             counter = 0
-            sum = 0
             for num, client in data.items():
                 if ('payments' in client and 'cash' in client['payments']):  # card
                     if client['close'] != None:
@@ -341,7 +332,7 @@ def parse_poster(pay_report):
     return orders, int(sum)
 
 def create_report(file_path, orders, result, hours_difference):
-
+    bookmarks = []
     data = {
         'opening_time': '',
         'closing_time': '',
@@ -368,36 +359,31 @@ def create_report(file_path, orders, result, hours_difference):
     no_workers.close()
     opened_cash.close()
 
-    for e in events:
+    for e in opened_cash.items:
         text = ''
+        time_begin = get_time_for_frames(e['begin'], hours_difference)
+        time_end = get_time_for_frames(e['end'], hours_difference)
+        sell = ''
+        for order in orders:
+            if order[1] == True:
+                time_sell = order[0]
 
-        if e.type == NO_WORKERS:
-            text = "No_workers"
+                time_begin_seconds = time_begin.hour * 3600 + time_begin.minute * 60 + time_begin.second
+                time_end_seconds = time_end.hour * 3600 + time_end.minute * 60 + time_end.second
+                time_sell_seconds = time_sell.hour * 3600 + time_sell.minute * 60 + time_sell.second
 
-        elif e.type == OPENEDCASH_CLIENT:
-            time_begin = get_time_for_frames(e.begin, hours_difference)
-            time_end = get_time_for_frames(e.end, hours_difference)
-            sell = ''
-            for order in orders:
-                if order[1] == True:
-                    time_sell = order[0]
+                diff_begin = time_begin_seconds - time_sell_seconds
+                diff_end = time_end_seconds - time_sell_seconds
 
-                    time_begin_seconds = time_begin.hour * 3600 + time_begin.minute * 60 + time_begin.second
-                    time_end_seconds = time_end.hour * 3600 + time_end.minute * 60 + time_end.second
-                    time_sell_seconds = time_sell.hour * 3600 + time_sell.minute * 60 + time_sell.second
+                if time_sell > time_begin and time_sell < time_end  or abs(diff_begin) < 60 or abs(diff_end) < 60:
+                    sell = ' Cash '
+                    order[2] = True
+                    break
 
-                    diff_begin = time_begin_seconds - time_sell_seconds
-                    diff_end = time_end_seconds - time_sell_seconds
-
-                    if time_sell > time_begin and time_sell < time_end  or abs(diff_begin) < 60 or abs(diff_end) < 60:
-                        sell = ' Cash '
-                        order[2] = True
-                        break
-
-            text = "Opened cash: " + str(time_begin) + " " + sell
+        bookmark_text = "Opened cash: " + str(time_begin) + " " + sell
 
         #result = text + " begin: " + str(e.begin) + " end: " + str(e.end)
-        bookmarks.append((int(e.begin/FPS), text))
+        bookmarks.append((int(e['begin']/FPS) - BEFORE_OPENED_CASH_SECONDS, bookmark_text))
 
     for order in orders:
         time_sell = order[0]
@@ -408,7 +394,7 @@ def create_report(file_path, orders, result, hours_difference):
             order[2] = True
         else:
             if order[2] == False:
-                bookmarks.append((int(time_sell), 'WARNING. Cash : ' + str(order[0])))
+                bookmarks.append((int(time_sell - BEFORE_OPENED_CASH_SECONDS), 'WARNING. Cash : ' + str(order[0])))
                 order[2] = True
 
     if len(no_workers.items) > 2:
