@@ -1,0 +1,2360 @@
+{
+  "correlationId": "dd637a8f-772c-46e4-a62d-e268d27254f7",
+  "orders": [
+    {
+      "id": "d382e331-8ecc-4063-a0ef-a8a4d1b3833f",
+      "posId": "702a67ae-2d34-49b4-89dc-26f456eb759d",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887665755,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 10:04:54.580",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 85.0,
+        "number": 43631,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 10:06:46.522",
+        "whenClosed": "2023-12-06 10:06:46.618",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0090",
+              "name": "Капучино великий"
+            },
+            "modifiers": null,
+            "price": 85.0,
+            "cost": 85.0,
+            "pricePredefined": false,
+            "positionId": "2aef3b31-25eb-4b90-8e02-961c02073205",
+            "taxPercent": 0.0,
+            "resultSum": 85.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 10:06:58.479",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 85.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 85.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "0e49fdae-db6a-4a5d-8db0-eeca9326ba03",
+      "posId": "d0225eb1-8492-41c4-9e05-022c3abe7c43",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887683889,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 10:26:15.755",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 150.0,
+        "number": 43632,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 10:26:30.255",
+        "whenClosed": "2023-12-06 10:26:30.882",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01fc",
+              "name": "Сосиска в тісті з кунжутом"
+            },
+            "modifiers": null,
+            "price": 35.0,
+            "cost": 35.0,
+            "pricePredefined": false,
+            "positionId": "be436931-2dfd-43ea-87a9-636e769610d6",
+            "taxPercent": 0.0,
+            "resultSum": 35.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 10:26:31.616",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "11ae54a6-043d-3d5e-0189-b0d057770b21",
+              "name": "Сосиска під сиром"
+            },
+            "modifiers": null,
+            "price": 55.0,
+            "cost": 55.0,
+            "pricePredefined": false,
+            "positionId": "71732ca2-8a71-465a-857a-24e4428730c3",
+            "taxPercent": 0.0,
+            "resultSum": 55.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 10:26:31.616",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "edabdd71-d57f-a589-0185-bec4f0ba922f",
+              "name": "Лонг Блек з молоком"
+            },
+            "modifiers": null,
+            "price": 60.0,
+            "cost": 60.0,
+            "pricePredefined": false,
+            "positionId": "b424d7f6-f16d-42b9-aecf-4845487c8c05",
+            "taxPercent": 0.0,
+            "resultSum": 60.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 10:26:31.616",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 150.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 150.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "e8c26a32-67c1-4a9d-89e9-4b6498ea88b7",
+      "posId": "7418024b-7b9b-40a2-8b75-d5db15077448",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887683703,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 10:46:04.734",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 69.0,
+        "number": 43633,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 10:47:59.669",
+        "whenClosed": "2023-12-06 10:47:59.758",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0088",
+              "name": "Капучино малий"
+            },
+            "modifiers": null,
+            "price": 69.0,
+            "cost": 69.0,
+            "pricePredefined": false,
+            "positionId": "99539c42-b007-41e2-8450-e4ca1f2838c7",
+            "taxPercent": 0.0,
+            "resultSum": 69.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 10:48:09.233",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 69.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 69.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "3c53d436-a17a-4dde-a006-0b3b6d43fe42",
+      "posId": "dc80b4a1-3ca5-4062-beec-a1a6473177a1",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887683121,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 11:40:15.656",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 325.0,
+        "number": 43636,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 11:40:22.203",
+        "whenClosed": "2023-12-06 11:40:22.293",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "c7e52791-f57a-b76b-018b-8c5c2ad7d614",
+              "name": "Макаронс"
+            },
+            "modifiers": null,
+            "price": 65.0,
+            "cost": 325.0,
+            "pricePredefined": false,
+            "positionId": "5b85edec-d39d-400b-a818-3af0ac11473e",
+            "taxPercent": 0.0,
+            "resultSum": 325.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 5.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 11:40:39.148",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 325.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 325.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "f13ee6a7-452c-4176-9557-35307dab0df2",
+      "posId": "9d5dd5cc-8d17-42ef-b9f4-7a9bae0d34d4",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887683328,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 11:27:31.561",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 45.0,
+        "number": 43635,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 11:27:41.428",
+        "whenClosed": "2023-12-06 11:27:41.524",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0074",
+              "name": "Еспресо"
+            },
+            "modifiers": null,
+            "price": 45.0,
+            "cost": 45.0,
+            "pricePredefined": false,
+            "positionId": "eccaddfe-3038-4d4a-bc43-8dad5aaeda77",
+            "taxPercent": 0.0,
+            "resultSum": 45.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 11:27:50.467",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 45.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 45.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "cff23ded-af85-4e49-a47b-a0e323660016",
+      "posId": "4ff90b58-a1db-4665-92d4-9ed82d54e8b3",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887682178,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 12:13:39.037",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 55.0,
+        "number": 43641,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 12:13:54.292",
+        "whenClosed": "2023-12-06 12:13:54.392",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "11ae54a6-043d-3d5e-0189-b0d057770b21",
+              "name": "Сосиска під сиром"
+            },
+            "modifiers": null,
+            "price": 55.0,
+            "cost": 55.0,
+            "pricePredefined": false,
+            "positionId": "91eda405-cdce-4473-a97f-7e2146cb9bb4",
+            "taxPercent": 0.0,
+            "resultSum": 55.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 12:13:54.985",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 55.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 55.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "6a85e402-69c9-40e2-acca-2c492b0376f1",
+      "posId": "6a27cb8f-5646-4272-a55a-818ecab9904d",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887681221,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 13:32:21.551",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 47.0,
+        "number": 43646,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 13:32:28.691",
+        "whenClosed": "2023-12-06 13:32:28.781",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0270",
+              "name": "Хліб \"Фітнес гречаний\""
+            },
+            "modifiers": null,
+            "price": 47.0,
+            "cost": 47.0,
+            "pricePredefined": false,
+            "positionId": "4bbac659-ab4a-4947-b374-7ec648bd1939",
+            "taxPercent": 0.0,
+            "resultSum": 47.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 13:32:36.773",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 47.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 47.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "f557ed1b-e755-4b4b-9b02-9d541c24c38c",
+      "posId": "d6dfd7d9-d2b3-4352-ad94-2cbd8bafa3e5",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887677189,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 15:03:24.194",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 52.0,
+        "number": 43667,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 15:03:46.046",
+        "whenClosed": "2023-12-06 15:03:46.130",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c027b",
+              "name": "Хліб цільнозерновой бездрожжевий"
+            },
+            "modifiers": null,
+            "price": 52.0,
+            "cost": 52.0,
+            "pricePredefined": false,
+            "positionId": "c7e2048c-ac22-4fca-9ab6-1b8d2e1b0629",
+            "taxPercent": 0.0,
+            "resultSum": 52.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 15:03:46.783",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 52.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 52.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "e3027040-b579-4baf-91a6-39fbd982193d",
+      "posId": "4d39062c-e2d6-4a98-a751-c5a0aefa5157",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887675854,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 15:57:43.451",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 104.0,
+        "number": 43674,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 15:58:11.927",
+        "whenClosed": "2023-12-06 15:58:12.017",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "03249bc4-2994-b039-0184-728db28a6d68",
+              "name": "Сінабон з вишнею"
+            },
+            "modifiers": null,
+            "price": 52.0,
+            "cost": 52.0,
+            "pricePredefined": false,
+            "positionId": "ee5a069b-a815-41e0-bcd2-c3a7c0083d58",
+            "taxPercent": 0.0,
+            "resultSum": 52.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 15:58:20.714",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "03249bc4-2994-b039-0184-728db28a6d6a",
+              "name": "Сінабон з корицею та сиром"
+            },
+            "modifiers": null,
+            "price": 47.0,
+            "cost": 47.0,
+            "pricePredefined": false,
+            "positionId": "af9e3635-f365-43d0-b073-4949c007f9b8",
+            "taxPercent": 0.0,
+            "resultSum": 47.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 15:58:20.714",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01dc",
+              "name": "Пакет Біо"
+            },
+            "modifiers": null,
+            "price": 5.0,
+            "cost": 5.0,
+            "pricePredefined": false,
+            "positionId": "096dc7e6-12d0-4aef-9e65-17adad2d4290",
+            "taxPercent": 0.0,
+            "resultSum": 5.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 15:58:20.714",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 104.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 104.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "fa7e8222-2909-47a7-a817-db4e79d8b5cb",
+      "posId": "30c8b7d5-00c6-49d3-8485-af37ca486d72",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887675270,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 16:15:32.626",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 39.0,
+        "number": 43677,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 16:15:51.103",
+        "whenClosed": "2023-12-06 16:15:51.805",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0195",
+              "name": "Багет \"Класичний\""
+            },
+            "modifiers": null,
+            "price": 39.0,
+            "cost": 39.0,
+            "pricePredefined": false,
+            "positionId": "bebe56d5-6e32-430b-8c13-1768778db853",
+            "taxPercent": 0.0,
+            "resultSum": 39.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 16:15:52.464",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 39.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 39.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "1925a4bd-223b-4262-a1aa-c8264e311728",
+      "posId": "e7fe21fe-88e2-4a96-bd6f-3f6680f371a8",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887673162,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 16:58:23.856",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 67.0,
+        "number": 43688,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 16:59:09.249",
+        "whenClosed": "2023-12-06 16:59:09.350",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01f2",
+              "name": "Плюшка \"Цукорна\""
+            },
+            "modifiers": null,
+            "price": 21.0,
+            "cost": 42.0,
+            "pricePredefined": false,
+            "positionId": "c4136bff-7012-4ca9-8586-65657850eb92",
+            "taxPercent": 0.0,
+            "resultSum": 42.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 2.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 16:59:09.860",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c019b",
+              "name": "Бублик з кунжутом"
+            },
+            "modifiers": null,
+            "price": 25.0,
+            "cost": 25.0,
+            "pricePredefined": false,
+            "positionId": "392281bf-2293-4462-b749-da1c7917e30b",
+            "taxPercent": 0.0,
+            "resultSum": 25.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 16:59:09.860",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 67.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 67.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "3a394348-eb92-4e87-8e4e-11d5b936647f",
+      "posId": "d2192b7d-b54f-4f70-b03b-fd3f66efa07a",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887672763,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 17:30:26.919",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 247.0,
+        "number": 43690,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 17:31:17.372",
+        "whenClosed": "2023-12-06 17:31:17.466",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "c7e52791-f57a-b76b-018b-8c5c2ad7d614",
+              "name": "Макаронс"
+            },
+            "modifiers": null,
+            "price": 65.0,
+            "cost": 195.0,
+            "pricePredefined": false,
+            "positionId": "a4059eef-fcd9-4e98-b5ae-298e36b7c4f7",
+            "taxPercent": 0.0,
+            "resultSum": 195.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 3.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 17:31:18.022",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c027b",
+              "name": "Хліб цільнозерновой бездрожжевий"
+            },
+            "modifiers": null,
+            "price": 52.0,
+            "cost": 52.0,
+            "pricePredefined": false,
+            "positionId": "05451b06-6854-415c-81ed-ed62c633049d",
+            "taxPercent": 0.0,
+            "resultSum": 52.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 17:31:18.022",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 247.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 247.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "ecabbb18-7da8-48d1-9587-17a8ad5c63da",
+      "posId": "a10bb5ac-80a3-4297-a9ac-a7717a83ec64",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887672569,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 17:50:06.341",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 35.0,
+        "number": 43691,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 17:50:13.868",
+        "whenClosed": "2023-12-06 17:50:13.962",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01fc",
+              "name": "Сосиска в тісті з кунжутом"
+            },
+            "modifiers": null,
+            "price": 35.0,
+            "cost": 35.0,
+            "pricePredefined": false,
+            "positionId": "faab5dca-f994-47bf-9fbf-b1183521b8a1",
+            "taxPercent": 0.0,
+            "resultSum": 35.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 17:50:23.325",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 35.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 35.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "356c9064-24bd-4db5-a092-8a25d239f6ab",
+      "posId": "128c59f6-32f0-40d4-8c6a-e74e8aa2cb3b",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887672194,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 17:52:12.951",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 230.0,
+        "number": 43693,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 18:54:37.281",
+        "whenClosed": "2023-12-06 18:54:37.370",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "edabdd71-d57f-a589-0185-bec4f0ba9235",
+              "name": "Лонг Блек на кокосовому молоці"
+            },
+            "modifiers": null,
+            "price": 65.0,
+            "cost": 65.0,
+            "pricePredefined": false,
+            "positionId": "585a7e09-2f5f-49d2-8754-0c4607cdad1a",
+            "taxPercent": 0.0,
+            "resultSum": 65.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 18:54:37.752",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01fc",
+              "name": "Сосиска в тісті з кунжутом"
+            },
+            "modifiers": null,
+            "price": 35.0,
+            "cost": 35.0,
+            "pricePredefined": false,
+            "positionId": "5e953fe8-4cd9-4b53-95c4-318c242db489",
+            "taxPercent": 0.0,
+            "resultSum": 35.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 18:54:37.752",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "c7e52791-f57a-b76b-018b-8c5c2ad7d614",
+              "name": "Макаронс"
+            },
+            "modifiers": null,
+            "price": 65.0,
+            "cost": 130.0,
+            "pricePredefined": false,
+            "positionId": "b8960d2d-6e31-4bcf-bcf8-0638d81d61da",
+            "taxPercent": 0.0,
+            "resultSum": 130.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 2.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 18:54:37.752",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 1030.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 1030.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "f05f1b8f-50af-491d-8220-5274ba5a600a",
+      "posId": "11a6fcac-8ebe-49ed-969d-50f086fcc69e",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887668604,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 19:16:48.024",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 91.0,
+        "number": 43711,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 19:17:21.068",
+        "whenClosed": "2023-12-06 19:17:21.164",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c027b",
+              "name": "Хліб цільнозерновой бездрожжевий"
+            },
+            "modifiers": null,
+            "price": 52.0,
+            "cost": 52.0,
+            "pricePredefined": false,
+            "positionId": "8bf07197-caa5-45c0-bcaf-c4ab9e13127e",
+            "taxPercent": 0.0,
+            "resultSum": 26.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 19:17:28.583",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c019b",
+              "name": "Бублик з кунжутом"
+            },
+            "modifiers": null,
+            "price": 25.0,
+            "cost": 25.0,
+            "pricePredefined": false,
+            "positionId": "5f538e2b-2aba-4737-bc10-2e318db98635",
+            "taxPercent": 0.0,
+            "resultSum": 12.5,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 19:17:28.583",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01fc",
+              "name": "Сосиска в тісті з кунжутом"
+            },
+            "modifiers": null,
+            "price": 35.0,
+            "cost": 105.0,
+            "pricePredefined": false,
+            "positionId": "d1d543c1-e16e-4ac8-9aaa-e7a0f9da35f5",
+            "taxPercent": 0.0,
+            "resultSum": 52.5,
+            "status": "Served",
+            "deleted": null,
+            "amount": 3.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 19:17:28.583",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 91.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": [
+          {
+            "discountType": {
+              "id": "4e0279c5-85d7-4552-995e-13ab6e1becf7",
+              "name": "50 % Полная"
+            },
+            "sum": 91.0,
+            "selectivePositions": null,
+            "selectivePositionsWithSum": null
+          }
+        ],
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 91.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "eaa064dc-9628-4edf-921a-8ebf1d6ed17d",
+      "posId": "cd9a48f2-f74a-441d-b8a3-711d6f6349a1",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887664839,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 20:17:04.994",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 120.0,
+        "number": 43725,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 20:17:17.967",
+        "whenClosed": "2023-12-06 20:17:18.059",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "c7e52791-f57a-b76b-018b-8c5c2ad7d614",
+              "name": "Макаронс"
+            },
+            "modifiers": null,
+            "price": 65.0,
+            "cost": 65.0,
+            "pricePredefined": false,
+            "positionId": "7cb47739-a4b5-484c-b2b0-228a0bcd3623",
+            "taxPercent": 0.0,
+            "resultSum": 65.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 20:17:28.493",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "304c2a92-79a9-8607-018b-13f8dd292c6f",
+              "name": "Еклер лимонний"
+            },
+            "modifiers": null,
+            "price": 55.0,
+            "cost": 55.0,
+            "pricePredefined": false,
+            "positionId": "a0189bda-933b-47d0-ae9a-91ea2fb4203c",
+            "taxPercent": 0.0,
+            "resultSum": 55.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 20:17:28.493",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "e30c416b-7efb-4d37-bdb6-c3fb87f0c939",
+              "name": "PrivatBank",
+              "kind": "External"
+            },
+            "sum": 120.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 120.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "0d0414a9-e2dd-4798-8ddf-c7c349005db3",
+      "posId": "504294a3-d174-4af5-84be-2abe47d2a06c",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887664417,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 20:23:58.451",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 119.0,
+        "number": 43727,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 20:25:25.608",
+        "whenClosed": "2023-12-06 20:25:25.685",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "894af8d6-5b52-865c-0181-d9860825bf19",
+              "name": "Сендвіч  з куркою"
+            },
+            "modifiers": null,
+            "price": 119.0,
+            "cost": 119.0,
+            "pricePredefined": false,
+            "positionId": "9b31510b-fcaf-4c5e-912d-9bb276d360db",
+            "taxPercent": 0.0,
+            "resultSum": 119.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 20:25:26.027",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 520.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 520.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "8e31df72-2cbe-49f3-a66c-3e3b27a5927d",
+      "posId": "557840b3-df7f-4b0a-ace2-ac6222e0e00c",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887661727,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 21:03:18.145",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 27.0,
+        "number": 43738,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 21:04:09.189",
+        "whenClosed": "2023-12-06 21:04:09.279",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01f2",
+              "name": "Плюшка \"Цукорна\""
+            },
+            "modifiers": null,
+            "price": 21.0,
+            "cost": 21.0,
+            "pricePredefined": false,
+            "positionId": "66a0d025-f193-4399-9f0d-67da304e0904",
+            "taxPercent": 0.0,
+            "resultSum": 10.5,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 21:04:09.756",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01ee",
+              "name": "Пиріжок з яйцом та  зеленню"
+            },
+            "modifiers": null,
+            "price": 33.0,
+            "cost": 33.0,
+            "pricePredefined": false,
+            "positionId": "2acbe376-d3a8-4448-a1c8-ecdd5b7d23fd",
+            "taxPercent": 0.0,
+            "resultSum": 16.5,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 21:04:09.756",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 100.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": [
+          {
+            "discountType": {
+              "id": "4e0279c5-85d7-4552-995e-13ab6e1becf7",
+              "name": "50 % Полная"
+            },
+            "sum": 27.0,
+            "selectivePositions": null,
+            "selectivePositionsWithSum": null
+          }
+        ],
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 100.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "b878e7c7-0ea0-4161-b3b6-f17835a16694",
+      "posId": "8cb3e061-d96e-4b3c-a205-2ce24e0e02c9",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887624268,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Deleted",
+        "whenCreated": "2023-12-06 21:10:50.823",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 0.0,
+        "number": 43739,
+        "sourceKey": null,
+        "whenBillPrinted": null,
+        "whenClosed": null,
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [],
+        "combos": null,
+        "payments": null,
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 0.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "8b226f84-8d3b-4325-b5ba-dc55d34775ba",
+      "posId": "127e04bc-3a37-4c4b-8228-745a412da601",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887665053,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 20:08:49.648",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 63.0,
+        "number": 43724,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 20:09:03.901",
+        "whenClosed": "2023-12-06 20:09:04.005",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "1a5250fa-5f79-5788-018a-00695ea6aa09",
+              "name": "Сюпрем шоколадний"
+            },
+            "modifiers": null,
+            "price": 63.0,
+            "cost": 63.0,
+            "pricePredefined": false,
+            "positionId": "e8a02a1a-013a-46ff-99d1-ec81930e8208",
+            "taxPercent": 0.0,
+            "resultSum": 31.5,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 20:09:04.391",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "1a5250fa-5f79-5788-018a-00695ea6a9f0",
+              "name": "Сюпрем карамельний"
+            },
+            "modifiers": null,
+            "price": 63.0,
+            "cost": 63.0,
+            "pricePredefined": false,
+            "positionId": "7c88d296-081a-41ca-a0bb-75a3b9ef5e36",
+            "taxPercent": 0.0,
+            "resultSum": 31.5,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 20:09:04.391",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 100.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": [
+          {
+            "discountType": {
+              "id": "4e0279c5-85d7-4552-995e-13ab6e1becf7",
+              "name": "50 % Полная"
+            },
+            "sum": 63.0,
+            "selectivePositions": null,
+            "selectivePositionsWithSum": null
+          }
+        ],
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 100.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "fd5307a9-6530-46ad-b542-9a007fd9d629",
+      "posId": "badb70f2-4bf3-410f-b5f6-b65c9294c3fe",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887672969,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 17:15:53.550",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 52.0,
+        "number": 43689,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 17:16:20.026",
+        "whenClosed": "2023-12-06 17:16:20.110",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "444ec24d-b7cb-0a9b-0188-40987bd99d48",
+              "name": "Багет \"Гречаний\""
+            },
+            "modifiers": null,
+            "price": 47.0,
+            "cost": 47.0,
+            "pricePredefined": false,
+            "positionId": "f464032e-2076-4f27-b47a-eaa516ad6abb",
+            "taxPercent": 0.0,
+            "resultSum": 47.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 17:16:20.629",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c01dc",
+              "name": "Пакет Біо"
+            },
+            "modifiers": null,
+            "price": 5.0,
+            "cost": 5.0,
+            "pricePredefined": false,
+            "positionId": "d8372d64-3544-446b-a98f-b91e3e9e6adf",
+            "taxPercent": 0.0,
+            "resultSum": 5.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 17:16:20.629",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 52.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 52.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    },
+    {
+      "id": "ed1a6833-f2f9-4fad-b864-c0c0655112a6",
+      "posId": "fa819d08-bcc8-4f11-b764-a47e0134afef",
+      "externalNumber": null,
+      "organizationId": "0bca9d86-3bde-4093-861a-fe2295df8fef",
+      "timestamp": 1701887681412,
+      "creationStatus": "Success",
+      "errorInfo": null,
+      "order": {
+        "tableIds": [
+          "55ef8140-312b-48c0-91e9-595e71237846"
+        ],
+        "customer": null,
+        "phone": null,
+        "status": "Closed",
+        "whenCreated": "2023-12-06 13:18:57.081",
+        "waiter": {
+          "id": "fcde866c-90e7-454e-902d-d06ec91ffb4b",
+          "name": "Касир Хліб",
+          "phone": null
+        },
+        "tabName": null,
+        "splitOrderBetweenCashRegisters": null,
+        "menuId": null,
+        "sum": 96.0,
+        "number": 43645,
+        "sourceKey": null,
+        "whenBillPrinted": "2023-12-06 13:19:21.010",
+        "whenClosed": "2023-12-06 13:19:21.110",
+        "conception": {
+          "id": "faa09fe2-0c4b-4a66-a510-a4d1e8ce3bb7",
+          "name": "Пекарня \"Ремесленный хлеб\"",
+          "code": "8"
+        },
+        "guestsInfo": {
+          "count": 1,
+          "splitBetweenPersons": false
+        },
+        "items": [
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0270",
+              "name": "Хліб \"Фітнес гречаний\""
+            },
+            "modifiers": null,
+            "price": 47.0,
+            "cost": 47.0,
+            "pricePredefined": false,
+            "positionId": "c06fe693-9462-42c7-8f63-8adbb4064fc4",
+            "taxPercent": 0.0,
+            "resultSum": 47.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 13:19:21.774",
+            "size": null,
+            "comboInformation": null
+          },
+          {
+            "type": "Product",
+            "product": {
+              "id": "09f76b23-e835-089a-017f-1cc7712c0272",
+              "name": "Хліб \"Цільнозерновий формовий з насінням\""
+            },
+            "modifiers": null,
+            "price": 49.0,
+            "cost": 49.0,
+            "pricePredefined": false,
+            "positionId": "0997f2b3-a72d-4d4b-9b78-d39230c13a8d",
+            "taxPercent": 0.0,
+            "resultSum": 49.0,
+            "status": "Served",
+            "deleted": null,
+            "amount": 1.0,
+            "comment": null,
+            "whenPrinted": "2023-12-06 13:19:21.774",
+            "size": null,
+            "comboInformation": null
+          }
+        ],
+        "combos": null,
+        "payments": [
+          {
+            "paymentType": {
+              "id": "09322f46-578a-d210-add7-eec222a08871",
+              "name": "Наличные",
+              "kind": "Cash"
+            },
+            "sum": 96.0,
+            "isPreliminary": false,
+            "isExternal": false,
+            "isProcessedExternally": false,
+            "isFiscalizedExternally": false,
+            "isPrepay": false
+          }
+        ],
+        "tips": null,
+        "discounts": null,
+        "orderType": {
+          "id": "60edc799-bb22-4704-b69d-490b2571e39f",
+          "name": "ФОП 3",
+          "orderServiceType": "Common"
+        },
+        "terminalGroupId": "82827ab9-9300-4759-a237-2db822530ea7",
+        "processedPaymentsSum": 96.0,
+        "loyaltyInfo": {
+          "coupon": null,
+          "appliedManualConditions": null
+        },
+        "externalData": null
+      }
+    }
+  ]
+}

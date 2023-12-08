@@ -13,6 +13,7 @@ import datetime
 import json
 from db import DB
 from utils.general import LOGGER
+from datetime import timedelta, datetime
 
 #from moviepy.editor import VideoFileClip, concatenate_videoclips
 #from moviepy.video.io.VideoFileClip import VideoFileClip
@@ -280,7 +281,9 @@ def get_time_for_frames(frame, hours_difference):
 def parse_aiko(pay_report):
     orders = []#time when report was closed, FALSE - card, TRUE - cash// FALSE - not proceed, TRUE - proceed
     #pay_report = video_file[:-3] + "json"
-    sum = 0
+    card = 0
+    cash = 0
+    mid = 0
     counter = 0
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
@@ -288,25 +291,31 @@ def parse_aiko(pay_report):
             for client in data['orders']:
                 if (client['order']['payments'] != None and client['order']['payments'][0]['paymentType']['kind'] == 'External'): #card
                     if client['order']['whenClosed'] != None:
-                        datetime_obj = datetime.datetime.strptime(client['order']['whenClosed'], "%Y-%m-%d %H:%M:%S.%f")
-                        sum = sum + client['order']['sum']
+                        datetime_obj = datetime.strptime(client['order']['whenClosed'], "%Y-%m-%d %H:%M:%S.%f")
+                        card = card + client['order']['sum']
                         counter = counter + 1
                         orders.append([datetime_obj.time(), False, False])
                 else:#cash
                     if client['order']['whenClosed'] != None:
-                        datetime_obj = datetime.datetime.strptime(client['order']['whenClosed'], "%Y-%m-%d %H:%M:%S.%f")
-                        sum = sum + client['order']['sum']
+                        datetime_obj = datetime.strptime(client['order']['whenClosed'], "%Y-%m-%d %H:%M:%S.%f")
+                        cash = cash + client['order']['sum']
                         counter = counter + 1
                         orders.append([datetime_obj.time(), True, False])
 
     else:
-        LOGGER.info(str(datetime.datetime.now()) + f' File not found: {pay_report}')
+        LOGGER.info(str(datetime.now()) + f' File not found: {pay_report}')
 
-    return orders, int(sum)
+    orders.sort(key=lambda x: x[0])
+    sum = int(cash + card)
+
+    if len(orders) > 0: mid = sum / len(orders)
+    return orders, sum, mid, cash, card
 
 def parse_poster(pay_report):
     orders = []
-    sum = 0
+    card = 0
+    cash = 0
+    mid = 0
     if os.path.isfile(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
             data = json.load(f)
@@ -314,22 +323,62 @@ def parse_poster(pay_report):
             for num, client in data.items():
                 if ('payments' in client and 'cash' in client['payments']):  # card
                     if client['close'] != None:
-                        datetime_obj = datetime.datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
+                        datetime_obj = datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
                         t = datetime_obj.time()
                         counter = counter + 1
-                        sum = sum + client['payments']['cash']
+                        cash = cash + client['payments']['cash']
                         orders.append([t, True, False])
                 elif ('payments' in client and 'card' in client['payments']):
                     if client['close'] != None:
-                        datetime_obj = datetime.datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
+                        datetime_obj = datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
                         t = datetime_obj.time()
-                        sum = sum + client['payments']['card']
+                        card = card + client['payments']['card']
                         counter = counter + 1
                         orders.append([t, False, False])
     else:
-        LOGGER.info(str(datetime.datetime.now()) + f' File not found: {pay_report}')
+        LOGGER.info(str(datetime.now()) + f' File not found: {pay_report}')
 
-    return orders, int(sum)
+    orders.sort(key=lambda x: x[0])
+    sum = int(cash + card)
+
+    if len(orders) > 0: mid = sum/len(orders)
+    return orders, sum, mid, cash, card
+
+def parse_1с(pay_report):
+    orders = []
+    sum = 0
+    if os.path.isfile(pay_report):
+        with open(pay_report, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            counter = 0
+            for num, client in data.items():
+                if ('payments' in client and 'Наличные' in client['payments']):  # card
+                    if client['close'] != None:
+                        datetime_obj = datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
+                        t = (datetime.combine(datetime.today(), datetime_obj.time()) - timedelta(seconds=30)).time()
+                        orders.append([t, True, False])
+                elif ('payments' in client):
+                    if client['close'] != None:
+                        datetime_obj = datetime.strptime(client['close'], "%Y-%m-%d %H:%M:%S")
+                        t = (datetime.combine(datetime.today(), datetime_obj.time()) - timedelta(seconds=30)).time()
+                        orders.append([t, False, False])
+
+    else:
+        LOGGER.info(str(datetime.now()) + f' File not found: {pay_report}')
+
+    orders.sort(key=lambda x: x[0])
+
+    mid = 0
+    cash = 0
+    card = 0
+    sum = 0
+
+    if 'Выручка' in data['info']: sum = data['info']['Выручка']
+    if 'Оплата наличные' in data['info']: cash = data['info']['Оплата наличные']
+    if 'Оплата безнал' in data['info']: card = data['info']['Оплата безнал']
+    if 'Средний чек' in data['info']: mid = data['info']['Средний чек']
+
+    return orders, int(sum), mid, cash, card
 
 def create_report(file_path, orders, result, hours_difference):
     bookmarks = []
@@ -496,23 +545,22 @@ def parse_report(report_file, est_name):
         return parse_aiko(report_file)
     elif report_type == "poster":
         return parse_poster(report_file)
-
-    return orders, 0
+    elif report_type == '1c':
+        return parse_1с(report_file)
+    return orders, 0, 0, 0
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    video_file =  r'Z:\testipcam\frankjay\video\1280\6_2023-10-09_07-00-00.mp4'
-    report_file = r"Z:\testipcam\frankjay\video\1280\6_2023-10-22_07-00-00.json"
-    orders, sum = parse_poster(report_file)
+
+    orders, sum, mid, cash, card  = parse_1с('test_files/1c.json')
+    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    orders, sum, mid, cash, card = parse_poster('test_files/poster.json')
+    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    orders, sum, mid, cash, card = parse_aiko('test_files/aiko.json')
+    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
     #db = DB()
-    frames_file = r'E:\dev\sources\testing\exp228\6_2023-10-09_07-00-00.txt'
+    frames_file = r'/Users/oleh/ar/3_2023-11-29_11-00-00.txt'
 
-    data = create_report(frames_file, orders, video_file[:-4] + '.xspf', 7)
-    time1 = datetime.datetime.strptime(data['opening_time'], "%H:%M:%S")
-    time2 = datetime.datetime.strptime(data['closing_time'], "%H:%M:%S")
-
-    # Вычисление разницы между двумя временами
-    time_difference = time2 - time1
-    print(time_difference)
+    data = create_report(frames_file, orders, video_file[:-4] + '.xspf', 11)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

@@ -16,21 +16,23 @@ from detect import run
 bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
 
 base_rep = """
-🔓Открытие: %s
-🔓Закрыто: %s \n
-  Общее время работы %s\n
-🧍‍♂️ Нет на рабочем месте:
+🔓Початок: %s
+🔓Зачинення: %s \n
+  Загальний час роботи %s\n
+🧍‍♂️ Відсутність на робочому місці:
 %s
-\n🧍‍♂️Общее время отсутствия: %s мин\n
+\n🧍‍♂Загальний час відсутності: %s мин\n
 """
 
 sells_rep = """
-\n📉Количество продаж проекта:
+\n📉Кількість продажів проекту:
 %s 
 
-Итого продаж: %s 
-🧾Средний чек проекта: %s грн.
-💸Выручка : %s грн 
+Продажів загалом: %s 
+🧾Средній чек проекту: %s грн.
+💸Сумма загалом : %s грн
+💵Готівкою : %s грн
+💳Карткою :  %s грн 
 """
 
 def get_params(file_name):
@@ -119,18 +121,24 @@ def f(x, y):
         os.remove(weight)
         #frames_file = r"E:\dev\vision\testing\exp27\3_2023-11-08_11-00-00.txt"
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task finished with params ' + str(y))
-        orders, sum = parse_report(source_path[:-3] + 'json', est_name)
-        time_from_file = get_time_from_file(source_path)
-        print(time_from_file)
-        if time_from_file is False:
-            raise ValueError("Ошибка получения времени из файла")
+
+        orders = []
+        sum = 0
+        mid = 0
+        cash = 0
+        card = 0
+
+        if db.get_report_type(est_name) != 'none':
+            orders, sum, mid, cash, card = parse_report(source_path[:-3] + 'json', est_name)
+            time_from_file = get_time_from_file(source_path)
+            print(time_from_file)
+            if time_from_file is False:
+                raise ValueError("Ошибка получения времени из файла")
+
+
         data = create_report(frames_file, orders, source_path[:-4] + '.xspf', time_from_file.hour)
-        data['sum'] = str(sum)
-        count = 1
-        if len(orders) > 0:
-            count = len(orders)
-        else:
-            count = 1
+
+
         away_periods_formatted = "\n".join(data['away_periods'])
         activities_formatted = "\n".join(data['activities'])
         time_open = datetime.datetime.strptime(data['opening_time'], "%H:%M:%S")
@@ -147,12 +155,14 @@ def f(x, y):
             formatted_report = formatted_report + sells_rep % (
                 activities_formatted,
                 count,
-                int(sum / count),
-                sum
+                mid,
+                sum,
+                cash,
+                card
             )
         users = db.get_users_list_for_est(est_name)
 
-        user_message = f"📈 Отчёт за дату: {converted_date}\n Заведение: {est_name}\n" + formatted_report
+        user_message = f"📈 Звіт за дату: {converted_date}\n Заклад: {est_name}\n" + formatted_report
 
         db.set_base_report(est_name, str(converted_date), generate_report_text(data))
         for user in users:

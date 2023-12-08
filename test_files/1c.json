@@ -1,0 +1,774 @@
+{
+    "00000030614": {
+        "products": [
+            {
+                "product": "Заправка Orwell Medium Blue Mist (Голубика Айс) 50 g.",
+                "count": 1,
+                "price": 140,
+                "sum": 140
+            },
+            {
+                "product": "Заправка 420 Classic Lemon Cake (Лимонный Пирог) 100 g.",
+                "count": 1,
+                "price": 255,
+                "sum": 255
+            },
+            {
+                "product": "Заправка 420 Classic Watermelon Juice (Арбузный Сок) 100 g.",
+                "count": 1,
+                "price": 255,
+                "sum": 255
+            }
+        ],
+        "close": "2023-12-06 11:52:38",
+        "payments": {
+            "На Карту ПБ (на личную)": 650
+        },
+        "open": "2023-12-06 10:34:34"
+    },
+    "00000030620": {
+        "products": [
+            {
+                "product": "Заправка Dead Horse Elderberry (Бузина) 50 g.",
+                "count": 1,
+                "price": 210,
+                "sum": 210
+            },
+            {
+                "product": "Заправка Dead Horse Red Comet (Красная Комета) 100 g.",
+                "count": 1,
+                "price": 360,
+                "sum": 360
+            },
+            {
+                "product": "Заправка Dead Horse Ruby Lemonade (Рубиновый Лимонад) 100 g.",
+                "count": 1,
+                "price": 360,
+                "sum": 360
+            }
+        ],
+        "close": "2023-12-06 12:23:17",
+        "payments": {
+            "На Карту ПБ (на личную)": 930
+        },
+        "open": "2023-12-06 11:52:39"
+    },
+    "00000030622": {
+        "products": [
+            {
+                "product": "Заправка Loud Pinkl (Сладкое Клубничное Мороженое) 20 g.",
+                "count": 1,
+                "price": 75,
+                "sum": 75
+            },
+            {
+                "product": "Заправка Dead Horse Almond Shape (Выпечка с Миндальем) Heaven Line 20 g.",
+                "count": 1,
+                "price": 50,
+                "sum": 50
+            },
+            {
+                "product": "Заправка Loud Melonjuice (Микс Арбуза и Дыни) 20 g.",
+                "count": 1,
+                "price": 75,
+                "sum": 75
+            },
+            {
+                "product": "Заправка Unity Земляника (Wild Berries) 20 g.",
+                "count": 1,
+                "price": 65,
+                "sum": 65
+            },
+            {
+                "product": "Уголь Ореховый Gresco C25 (Без коробки) 1 кг. ",
+                "count": 1,
+                "price": 130,
+                "sum": 130
+            }
+        ],
+        "close": "2023-12-06 12:46:03",
+        "payments": {
+            "На Карту ПБ (на личную)": 395
+        },
+        "open": "2023-12-06 12:23:18"
+    },
+    "00000030625": {
+        "products": [
+            {
+                "product": "Жидкость Yummy Черничный Лимонад (Blueberry Lemonade) 30ml/50mg Salt Nic",
+                "count": 1,
+                "price": 300,
+                "sum": 300
+            }
+        ],
+        "close": "2023-12-06 13:11:02",
+        "payments": {
+            "Наличные": 300
+        },
+        "open": "2023-12-06 12:46:04"
+    },
+    "00000030631": {
+        "products": [
+            {
+                "product": "Заправка Loud Sweetpear (Сладкая, Сочная Груша) 20 g.",
+                "count": 1,
+                "price": 75,
+                "sum": 75
+            },
+            {
+                "product": "Заправка Unity Арбуз, Дыня, Орбит (Turbo) 100 g.",
+                "count": 1,
+                "price": 295,
+                "sum": 295
+            }
+        ],
+        "close": "2023-12-06 13:39:21",
+        "payments": {
+            "Наличные": 370
+        },
+        "open": "2023-12-06 13:11:02"
+    },
+    "00000030635": {
+        "products": [
+            {
+                "product": "Уголь Escobar C25 1 кг.",
+                "count": 1,
+                "price": 190,
+                "sum": 190
+            },
+            {
+                "product": "Заправка 420 Classic Citrus Tea (Цитрусовый Чай) 100 g.",
+                "count": 1,
+                "price": 255,
+                "sum": 255
+            }
+        ],
+        "close": "2023-12-06 14:00:15",
+        "payments": {
+            "Платежная карта (терминал)": 445
+        },
+        "open": "2023-12-06 13:39:21"
+    },
+    "00000030687": {
+        "products": [
+            {
+                "product": "Заправка 420 Classic Tropical Splash (Тропический Всплеск) 100 g.",
+                "count": 1,
+                "price": 255,
+                "sum": 255
+            },
+            {
+                "product": "Заправка Duman Sunrise (Малина Сливки) 100 g.",
+                "count": 1,
+                "price": 285,
+                "sum": 285
+            },
+            {
+                "product": "Заправка Loud Cola (Кола с Лимонной Кислинкой) 20 g.",
+                "count": 1,
+                "price": 75,
+                "sum": 75
+            },
+            {
+                "product": "Заправка Loud Melonjuice (Микс Арбуза и Дыни) 20 g.",
+                "count": 1,
+                "price": 75,
+                "sum": 75
+            },
+            {
+                "product": "Заправка Loud Thai Spirit (Зеленый Чай с Манго и Имбирем) 20 g.",
+                "count": 1,
+                "price": 75,
+                "sum": 75
+            }
+        ],
+        "close": "2023-12-06 17:40:16",
+        "payments": {
+            "Наличные": 765
+        },
+        "open": "2023-12-06 14:00:16"
+    },
+    "00000030703": {
+        "products": [
+            {
+                "product": "Заправка Lirra Lemon Cake (Лимонный Пирог) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Melon (Дыня) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Mojito (Мохито) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Berry Punch (Ягодный Пунш) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Pomberry (Черника) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Black Panda (Виноград Ментол) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Mimosa (Шампанское Апельсин) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Love (Любовь) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Focus (Фокус) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Ice Apple Mint (Айс Яблоко Мята) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            }
+        ],
+        "close": "2023-12-06 18:33:18",
+        "payments": {
+            "На Карту ПБ (на личную)": 950
+        },
+        "open": "2023-12-06 17:40:17"
+    },
+    "00000030709": {
+        "products": [
+            {
+                "product": "Заправка Charisma Cigar (Cигара) 50 g.",
+                "count": 1,
+                "price": 120,
+                "sum": 120
+            },
+            {
+                "product": "Заправка Nova Pink Lemonade (Розовый Лимонад) 20 g.",
+                "count": 1,
+                "price": 70,
+                "sum": 70
+            },
+            {
+                "product": "Заправка Nova Fruit Gum (Фруктовая Жвачка) 20 g.",
+                "count": 1,
+                "price": 70,
+                "sum": 70
+            },
+            {
+                "product": "Заправка Nova Black Currant (Чёрная Смородина) 20 g.",
+                "count": 1,
+                "price": 70,
+                "sum": 70
+            },
+            {
+                "product": "Заправка 420 Light Леди Киллер (Lady Killer) 100 g.",
+                "count": 1,
+                "price": 235,
+                "sum": 235
+            },
+            {
+                "product": "Заправка Yummy Апельсин Грейпфрут (Orange Grapefruit) 100 g.",
+                "count": 1,
+                "price": 290,
+                "sum": 290
+            }
+        ],
+        "close": "2023-12-06 18:53:48",
+        "payments": {
+            "Платежная карта (терминал)": 855
+        },
+        "open": "2023-12-06 18:33:19"
+    },
+    "00000030718": {
+        "products": [
+            {
+                "product": "Заправка 420 Classic Mandarin Lemonade (Мандариновая Содовая) 100 g.",
+                "count": 1,
+                "price": 255,
+                "sum": 255
+            }
+        ],
+        "close": "2023-12-06 19:26:01",
+        "payments": {
+            "Платежная карта (терминал)": 255
+        },
+        "open": "2023-12-06 18:53:49"
+    },
+    "00000030619": {
+        "products": [
+            {
+                "product": "Заправка Dead Horse Cane Mint (Тростниковая Мята) 100 g.",
+                "count": 1,
+                "price": 360,
+                "sum": 360
+            },
+            {
+                "product": "Заправка Spirit Gastro Болгарский Перец (Bell Pepper) 50 g.",
+                "count": 1,
+                "price": 110,
+                "sum": 110
+            },
+            {
+                "product": "Заправка Creepy Citrus Mix (Цитрусовый Микс) 100 g.",
+                "count": 1,
+                "price": 360,
+                "sum": 360
+            },
+            {
+                "product": "Заправка Unity Ягодный Лимонад (Berry Lemonade) 100 g.",
+                "count": 1,
+                "price": 295,
+                "sum": 295
+            },
+            {
+                "product": "Заправка Nova Green Tea (Зелёный Чай) 20 g.",
+                "count": 2,
+                "price": 70,
+                "sum": 140
+            }
+        ],
+        "close": "2023-12-06 12:21:49",
+        "payments": {
+            "На Карту ПБ (на личную)": 1265
+        },
+        "open": "2023-12-06 12:11:45"
+    },
+    "00000030637": {
+        "products": [
+            {
+                "product": "Жидкость Yummy Вишня Лимон Персик (Cherry Lemon Peach) 30ml/50mg Salt Nic",
+                "count": 1,
+                "price": 300,
+                "sum": 300
+            }
+        ],
+        "close": "2023-12-06 14:18:45",
+        "payments": {
+            "Платежная карта (терминал)": 300
+        },
+        "open": "2023-12-06 12:21:50"
+    },
+    "00000030648": {
+        "products": [
+            {
+                "product": "Elf Bar BC4000 Cola (Кола)",
+                "count": 1,
+                "price": 520,
+                "sum": 520
+            }
+        ],
+        "close": "2023-12-06 15:01:32",
+        "payments": {
+            "Наличные": 520
+        },
+        "open": "2023-12-06 14:18:45"
+    },
+    "00000030649": {
+        "products": [
+            {
+                "product": "Заправка Yummy Клубнкиа, Киви, Лайм (Strawberry, Kiwi, Lime) 100 g.",
+                "count": 1,
+                "price": 290,
+                "sum": 290
+            },
+            {
+                "product": "Заправка Unity Клубничный Тик-Так (Strawberry Tic-Tac) 100 g.",
+                "count": 1,
+                "price": 295,
+                "sum": 295
+            }
+        ],
+        "close": "2023-12-06 15:03:34",
+        "payments": {
+            "Наличные": 585
+        },
+        "open": "2023-12-06 15:01:33"
+    },
+    "00000030654": {
+        "products": [
+            {
+                "product": "Заправка 420 Classic Malvina (Малина) 100 g.",
+                "count": 1,
+                "price": 255,
+                "sum": 255
+            },
+            {
+                "product": "Заправка Duman Lemon (Лимон) 100 g.",
+                "count": 1,
+                "price": 285,
+                "sum": 285
+            }
+        ],
+        "close": "2023-12-06 15:40:04",
+        "payments": {
+            "Платежная карта (терминал)": 540
+        },
+        "open": "2023-12-06 15:03:35"
+    },
+    "00000030660": {
+        "products": [
+            {
+                "product": "Заправка Lirra 61 (61) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Amsterdam (Амстердам) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            }
+        ],
+        "close": "2023-12-06 16:15:01",
+        "payments": {
+            "Платежная карта (терминал)": 190
+        },
+        "open": "2023-12-06 15:40:05"
+    },
+    "00000030661": {
+        "products": [
+            {
+                "product": "Уголь C25 3 шт.",
+                "count": 1,
+                "price": 15,
+                "sum": 15
+            }
+        ],
+        "close": "2023-12-06 16:20:01",
+        "payments": {
+            "Наличные": 15
+        },
+        "open": "2023-12-06 16:15:02"
+    },
+    "00000030666": {
+        "products": [
+            {
+                "product": "Заправка Spirit Gastro Имбирь (Ginger) 50 g.",
+                "count": 1,
+                "price": 110,
+                "sum": 110
+            }
+        ],
+        "close": "2023-12-06 16:31:01",
+        "payments": {
+            "Наличные": 110
+        },
+        "open": "2023-12-06 16:20:02"
+    },
+    "00000030667": {
+        "products": [
+            {
+                "product": "Уголь Ореховый Opex C25 (В коробке) 1 кг.",
+                "count": 1,
+                "price": 130,
+                "sum": 130
+            }
+        ],
+        "close": "2023-12-06 16:31:44",
+        "payments": {
+            "Платежная карта (терминал)": 130
+        },
+        "open": "2023-12-06 16:31:02"
+    },
+    "00000030676": {
+        "products": [
+            {
+                "product": "Gord 4000 Strawberry Sundae (Клубничный Пломбир)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            },
+            {
+                "product": "Gord 4000 Cheese Grape (Сыр Виноград)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            },
+            {
+                "product": "Gord 4000 Watermelon Іce (Арбуз Айс)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            },
+            {
+                "product": "Gord 4000 Cherry Сola (Вишня Кола)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            },
+            {
+                "product": "Gord 4000 Blue Razz (Синий Лимонад)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            },
+            {
+                "product": "Gord 4000 Gummy Bear (Желейные Мишки)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            },
+            {
+                "product": "Gord 4000 Strawberry Banana Ice (Клубника Банан Лед)",
+                "count": 1,
+                "price": 490,
+                "sum": 490
+            }
+        ],
+        "close": "2023-12-06 16:56:44",
+        "payments": {
+            "Наличные": 3430
+        },
+        "open": "2023-12-06 16:31:44"
+    },
+    "00000030678": {
+        "products": [
+            {
+                "product": "Заправка 420 Light Виноград Мята (Grapes Mint) 100 g.",
+                "count": 1,
+                "price": 235,
+                "sum": 235
+            }
+        ],
+        "close": "2023-12-06 17:02:49",
+        "payments": {
+            "На Карту ПБ (на личную)": 235
+        },
+        "open": "2023-12-06 16:56:44"
+    },
+    "00000030691": {
+        "products": [
+            {
+                "product": "Заправка Nova Bounty Cookie (Кокосовое Печенье) 20 g.",
+                "count": 1,
+                "price": 70,
+                "sum": 70
+            },
+            {
+                "product": "Заправка Nova Black Currant Ice (Чёрная Смородина Айс) 20 g.",
+                "count": 1,
+                "price": 70,
+                "sum": 70
+            }
+        ],
+        "close": "2023-12-06 17:58:31",
+        "payments": {
+            "Платежная карта (терминал)": 140
+        },
+        "open": "2023-12-06 17:02:50"
+    },
+    "00000030695": {
+        "products": [
+            {
+                "product": "Уголь C25 0,25 кг. (18 кубиков)",
+                "count": 1,
+                "price": 65,
+                "sum": 65
+            },
+            {
+                "product": "Заправка Lirra Tropical Punch (Тропический Пунш) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Unity Малиновый Сорбет (Raspberry Sorbet) 20 g.",
+                "count": 1,
+                "price": 65,
+                "sum": 65
+            }
+        ],
+        "close": "2023-12-06 18:14:54",
+        "payments": {
+            "Наличные": 225
+        },
+        "open": "2023-12-06 17:58:32"
+    },
+    "00000030699": {
+        "products": [
+            {
+                "product": "Заправка Buta Gold Line Blast (Бласт) 50 g.",
+                "count": 1,
+                "price": 90,
+                "sum": 90
+            },
+            {
+                "product": "Заправка Unity Зелёное Яблоко (Green Apple) 100 g.",
+                "count": 1,
+                "price": 295,
+                "sum": 295
+            },
+            {
+                "product": "Уголь C25 0,25 кг. (18 кубиков)",
+                "count": 1,
+                "price": 65,
+                "sum": 65
+            }
+        ],
+        "close": "2023-12-06 18:21:32",
+        "payments": {
+            "Платежная карта (терминал)": 450
+        },
+        "open": "2023-12-06 18:14:54"
+    },
+    "00000030702": {
+        "products": [
+            {
+                "product": "Заправка Yummy Арбуз и Дыня (Watermelon and Melon) 100 g.",
+                "count": 1,
+                "price": 290,
+                "sum": 290
+            }
+        ],
+        "close": "2023-12-06 18:25:45",
+        "payments": {
+            "Наличные": 290
+        },
+        "open": "2023-12-06 18:21:33"
+    },
+    "00000030719": {
+        "products": [
+            {
+                "product": "Уголь Khmara COCOLOCO C25 1 кг.",
+                "count": 1,
+                "price": 245,
+                "sum": 245
+            },
+            {
+                "product": "Заправка Lirra Mojito (Мохито) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Lirra Gum Mint (Мятная Жвачка) 50 g.",
+                "count": 1,
+                "price": 95,
+                "sum": 95
+            },
+            {
+                "product": "Заправка Jibiar Ice Watermelon (Айс Арбуз) 100 g.",
+                "count": 1,
+                "price": 155,
+                "sum": 155
+            }
+        ],
+        "close": "2023-12-06 19:33:17",
+        "payments": {
+            "Платежная карта (терминал)": 590
+        },
+        "open": "2023-12-06 18:25:45"
+    },
+    "00000030720": {
+        "products": [
+            {
+                "product": "Уголь Khmara COCOLOCO C25 1 кг.",
+                "count": 1,
+                "price": 245,
+                "sum": 245
+            },
+            {
+                "product": "Заправка Buta Gold Line White Grape (Белый Виноград) 50 g.",
+                "count": 1,
+                "price": 90,
+                "sum": 90
+            },
+            {
+                "product": "Заправка Charisma Citrus Mix (Цитрусовый Микс) 50 g.",
+                "count": 1,
+                "price": 120,
+                "sum": 120
+            },
+            {
+                "product": "Сменный Картридж Lost Vape Ursa Nano/Baby Pod 1.2 Ом 2.5 мл",
+                "count": 1,
+                "price": 135,
+                "sum": 135
+            }
+        ],
+        "close": "2023-12-06 19:35:28",
+        "payments": {
+            "Наличные": 590
+        },
+        "open": "2023-12-06 19:33:17"
+    },
+    "00000030721": {
+        "products": [
+            {
+                "product": "Заправка Jibiar Ice Pear (Айс Груша) 100 g.",
+                "count": 1,
+                "price": 155,
+                "sum": 155
+            }
+        ],
+        "close": "2023-12-06 19:35:58",
+        "payments": {
+            "Платежная карта (терминал)": 155
+        },
+        "open": "2023-12-06 19:35:28"
+    },
+    "00000030722": {
+        "products": [
+            {
+                "product": "Заправка Nova Lemon Pie (Лимонный Пирог) 20 g.",
+                "count": 1,
+                "price": 70,
+                "sum": 70
+            }
+        ],
+        "close": "2023-12-06 19:37:29",
+        "payments": {
+            "Платежная карта (терминал)": 70
+        },
+        "open": "2023-12-06 19:35:59"
+    },
+    "00000030723": {
+        "products": [
+            {
+                "product": "Заправка Nova Spiced Cherry (Пряная Вишня) 100 g.",
+                "count": 1,
+                "price": 285,
+                "sum": 285
+            }
+        ],
+        "close": "2023-12-06 19:42:38",
+        "payments": {
+            "Наличные": 285
+        },
+        "open": "2023-12-06 19:37:30"
+    },
+    "info": {
+        "Открытие смены": "2023-12-06 10:34:34",
+        "Закрытие смены": "2023-12-06 20:00:29",
+        "Итого чеков": 30,
+        "Средний чек": 534.33,
+        "Выручка": 16030,
+        "Оплата наличные": 7485,
+        "Оплата безнал": 4120,
+        "Оплата Новая Почта": 0
+    }
+}
