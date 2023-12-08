@@ -90,7 +90,6 @@ def generate_report_text(report_data):
 
 def f(x, y):
 
-
     db = DB()
     args = y.split()
 
@@ -100,6 +99,7 @@ def f(x, y):
     parser.add_argument("--est", type=str, help="Est id")
     parser.add_argument("--id", type=str, help="Server id")
     parser.add_argument("--device", type=str, default='0', help="index device")
+    parser.add_argument('--debug', default=False, action='store_true', help='debugging mode')
 
     parsed_args = parser.parse_args(args)
 
@@ -108,18 +108,34 @@ def f(x, y):
     est_name = parsed_args.est
     server_id = parsed_args.id
     device = parsed_args.device
+    debug = parsed_args.debug
+
+    if debug is False: db = DB()
+    converted_date = get_date_from_file(source_path)
+    if converted_date == False:
+        return str(y)
 
     converted_date = get_date_from_file(source_path)
     if converted_date == False:
         return str(y)
     try:
-        weight = db.get_weights()
+        if debug is False: weight = db.get_weights()
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task started with params ' + str(y))
-        db.set_start_task( server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
-        frames_file = run(weights=weight, source=source_path, project=r'testing', imgsz=(1280, 1280), save_txt=True, nosave=True, device=device)
-        db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
-        os.remove(weight)
-        #frames_file = r"E:\dev\vision\testing\exp27\3_2023-11-08_11-00-00.txt"
+        if debug is False: db.set_start_task(server_id, db.get_id_est_by_name(parsed_args.est),
+                                             parsed_args.source)
+        if debug is False:
+            frames_file = run(weights=weight, source=source_path, project=r'testing', imgsz=(1280, 1280), save_txt=True,
+                          nosave=True,
+                          device=device)
+        else:
+            no_save = True
+            if project_path is not None: no_save = False
+            else:
+                project_path = 'testing'
+                run(weights='best.pt', source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True,nosave=no_save, device=device)
+        if debug is False : db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
+        if debug is False : os.remove(weight)
+
         LOGGER.info(str(datetime.datetime.now())[:-7] + ': Task finished with params ' + str(y))
 
         orders = []
@@ -164,19 +180,20 @@ def f(x, y):
 
         user_message = f"📈 Звіт за дату: {converted_date}\n Заклад: {est_name}\n" + formatted_report
 
-        db.set_base_report(est_name, str(converted_date), generate_report_text(data))
-        for user in users:
-            tg_id = db.get_telegram_id(user)
-            bot.send_message(tg_id, user_message)
+        if debud is False:
+            db.set_base_report(est_name, str(converted_date), generate_report_text(data))
+            for user in users:
+                tg_id = db.get_telegram_id(user)
+                bot.send_message(tg_id, user_message)
+        else:
+            bot.send_message('440385834', user_message)
+
     except Exception as e:
         LOGGER.info(str(datetime.datetime.now())[:-7] + f': ERROR in task {source_path}: ' + str(e))
         traceback.print_exc()
 
     return str(y)
 
-def clb(x):
-
-    test = 'asd'
 
 def main():
 
@@ -217,5 +234,4 @@ def main():
         pool.join()
 
 if __name__ == '__main__':
-    #bot.polling(none_stop=True, interval=0)  # обязательная для работы бота часть
     main()
