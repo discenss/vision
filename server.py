@@ -171,7 +171,7 @@ def f(x, y):
         if len(orders) > 0:
             formatted_report = formatted_report + sells_rep % (
                 activities_formatted,
-                count,
+                len(orders),
                 mid,
                 sum,
                 cash,
