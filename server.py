@@ -110,7 +110,7 @@ def f(x, y):
     device = parsed_args.device
     debug = parsed_args.debug
 
-    if debug is False: db = DB()
+    db = DB()
     converted_date = get_date_from_file(source_path)
     if converted_date == False:
         return str(y)
