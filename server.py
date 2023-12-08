@@ -132,7 +132,7 @@ def f(x, y):
             if project_path is not None: no_save = False
             else:
                 project_path = 'testing'
-                run(weights='best.pt', source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True,nosave=no_save, device=device)
+                frames_file = run(weights='best.pt', source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True,nosave=no_save, device=device)
         if debug is False : db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
         if debug is False : os.remove(weight)
 
