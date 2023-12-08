@@ -133,6 +133,7 @@ def f(x, y):
             else:
                 project_path = 'testing'
                 frames_file = run(weights='best.pt', source=source_path, project=project_path, imgsz=(1280, 1280), save_txt=True,nosave=no_save, device=device)
+
         if debug is False : db.set_end_task(server_id, db.get_id_est_by_name(parsed_args.est), parsed_args.source)
         if debug is False : os.remove(weight)
 
@@ -144,9 +145,9 @@ def f(x, y):
         cash = 0
         card = 0
 
+        time_from_file = get_time_from_file(source_path)
         if db.get_report_type(est_name) != 'none':
             orders, sum, mid, cash, card = parse_report(source_path[:-3] + 'json', est_name)
-            time_from_file = get_time_from_file(source_path)
             print(time_from_file)
             if time_from_file is False:
                 raise ValueError("Ошибка получения времени из файла")
