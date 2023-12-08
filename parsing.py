@@ -13,7 +13,7 @@ import datetime
 import json
 from db import DB
 from utils.general import LOGGER
-from datetime import timedelta, datetime
+from datetime import timedelta, datetime, time
 
 #from moviepy.editor import VideoFileClip, concatenate_videoclips
 #from moviepy.video.io.VideoFileClip import VideoFileClip
@@ -275,7 +275,7 @@ def get_time_for_frames(frame, hours_difference):
     m = int((frame % (3600 * FPS)) // (FPS * 60))
     s = int(((frame % (3600 * FPS))) % (FPS * 60) / FPS)
 
-    return datetime.time(hour=h, minute=m, second=s)
+    return time(hour=h, minute=m, second=s)
 
 
 def parse_aiko(pay_report):
@@ -553,6 +553,8 @@ def parse_report(report_file, est_name):
 if __name__ == '__main__':
 
     orders, sum, mid, cash, card  = parse_1с('test_files/1c.json')
+    frame_file = "test_files/10_2023-12-06_10-00-00.txt"
+    data = create_report(frame_file, orders,  frame_file + '.xspf', 10)
     print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
     orders, sum, mid, cash, card = parse_poster('test_files/poster.json')
     print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
@@ -561,6 +563,6 @@ if __name__ == '__main__':
     #db = DB()
     frames_file = r'/Users/oleh/ar/3_2023-11-29_11-00-00.txt'
 
-    data = create_report(frames_file, orders, video_file[:-4] + '.xspf', 11)
+    data = create_report("test_files/10_2023-12-06_10-00-00.txt", orders, video_file[:-4] + '.xspf', 11)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
