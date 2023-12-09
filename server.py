@@ -181,7 +181,7 @@ def f(x, y):
 
         user_message = f"📈 Звіт за дату: {converted_date}\n Заклад: {est_name}\n" + formatted_report
 
-        if debud is False:
+        if debug is False:
             db.set_base_report(est_name, str(converted_date), generate_report_text(data))
             for user in users:
                 tg_id = db.get_telegram_id(user)
