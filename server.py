@@ -167,7 +167,7 @@ def f(x, y):
             away_periods_formatted,
             data['total_away']
         )
-
+        data['sum'] = str(sum)
         if len(orders) > 0:
             formatted_report = formatted_report + sells_rep % (
                 activities_formatted,
