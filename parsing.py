@@ -502,20 +502,25 @@ def create_report(file_path, orders, result, hours_difference):
 
     begin = 0
     midle = 0
+    after = 0
     end = 0
     for o in orders:
-        if o[0].hour < 13:
+        if o[0].hour < 12:
             begin = begin + 1
-        elif o[0].hour >= 13 and o[0].hour < 19:
+        elif o[0].hour >= 12 and o[0].hour < 16:
             midle = midle + 1
+        elif o[0].hour >= 16 and o[0].hour < 19:
+            after = after + 1
         elif o[0].hour >= 19:
             end = end + 1
 
     text_report.append("\n📉Количество продаж проекта:\n")
-    text_report.append(f"8:00 - 13:00 : {begin}\n")
-    data['activities'].append(f"8:00 - 13:00 : {begin}")
-    text_report.append(f"13:00 - 19:00 : {midle}\n")
-    data['activities'].append(f"13:00 - 19:00 : {midle}")
+    text_report.append(f"8:00 - 12:00 : {begin}\n")
+    data['activities'].append(f"8:00 - 12:00 : {begin}")
+    text_report.append(f"12:00 - 16:00 : {midle}\n")
+    data['activities'].append(f"12:00 - 16:00 : {midle}")
+    text_report.append(f"16:00 - 19:00 : {after}\n")
+    data['activities'].append(f"16:00 - 19:00 : {after}")
     text_report.append(f"19:00 - 22:00 : {end}\n")
     data['activities'].append(f"19:00 - 22:00 : {end}")
     media_file = os.path.basename(result)[:-4] + "mp4"
