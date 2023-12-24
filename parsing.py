@@ -309,7 +309,7 @@ def parse_aiko(pay_report):
     sum = int(cash + card)
 
     if len(orders) > 0: mid = sum / len(orders)
-    return orders, sum, mid, cash, card
+    return orders, sum, int(mid), cash, card
 
 def parse_poster(pay_report):
     orders = []
@@ -342,7 +342,7 @@ def parse_poster(pay_report):
     sum = int(cash + card)
 
     if len(orders) > 0: mid = sum/len(orders)
-    return orders, sum, mid, cash, card
+    return orders, sum, int(mid), cash, card
 
 def parse_1с(pay_report):
     orders = []
@@ -378,7 +378,7 @@ def parse_1с(pay_report):
     if 'Оплата безнал' in data['info']: card = data['info']['Оплата безнал']
     if 'Средний чек' in data['info']: mid = data['info']['Средний чек']
 
-    return orders, int(sum), mid, cash, card
+    return orders, int(sum), int(mid), cash, card
 
 def create_report(file_path, orders, result, hours_difference):
     bookmarks = []
