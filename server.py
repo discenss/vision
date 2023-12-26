@@ -194,8 +194,12 @@ def f(x, y):
         if debug is False:
             db.set_base_report(est_name, str(converted_date), generate_report_text(data))
             for user in users:
-                tg_id = db.get_telegram_id(user)
-                bot.send_message(tg_id, user_message)
+                try:
+                    tg_id = db.get_telegram_id(user)
+                    bot.send_message(tg_id, user_message)
+                except:
+                    pass
+
         else:
             bot.send_message('440385834', user_message)
 
