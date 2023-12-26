@@ -13,7 +13,17 @@ from utils.general import LOGGER
 import traceback
 from detect import run
 
-bot = telebot.TeleBot('6560876647:AAGZXlZDeCazV8vQ9Wf6NZlqpJV7enc1olM')
+def read_bot_keys(file_path):
+    with open(file_path, 'r') as file:
+        first_line = file.readline().rstrip()
+        second_line = file.readline().rstrip()
+
+    return first_line, second_line
+
+# Пример использования функции
+file_path = 'file.txt'  # Укажите путь к вашему файлу
+bot_id, payment_token = read_bot_keys(file_path)
+bot = telebot.TeleBot(bot_id)
 
 base_rep = """
 🔓Початок: %s
