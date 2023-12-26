@@ -226,6 +226,7 @@ def main():
                         global running
                         running = False
                         conn.close()
+                        exit()
                         break
                     # logging.info('Task added in pool with params -' + msg)
                     pool.apply_async(f, (os.getpid(), msg))
