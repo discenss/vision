@@ -311,6 +311,43 @@ def parse_aiko(pay_report):
     if len(orders) > 0: mid = sum / len(orders)
     return orders, sum, int(mid), cash, card
 
+def parse_new_aiko(pay_report):
+    orders = []#time when report was closed, FALSE - card, TRUE - cash// FALSE - not proceed, TRUE - proceed
+    #pay_report = video_file[:-3] + "json"
+    card = 0
+    cash = 0
+    mid = 0
+    counter = 0
+    if os.path.isfile(pay_report):
+        with open(pay_report, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+            for order_id, order_data in data.items():
+                if 'Кухня' in order_data : continue
+                open_time = datetime.strptime(order_data['open'], "%Y-%m-%d %H:%M:%S")
+                close_time = datetime.strptime(order_data['close'], "%Y-%m-%d %H:%M:%S.%f")
+                if open_time is not None and close_time is not None:
+                    for payment_method, amount in order_data['payments'].items():
+                        if payment_method is not None and amount is not None:
+                            pay_cash = True
+                            if amount == 0: continue
+                            if payment_method != 'Наличные':
+                                card = card + amount
+                                pay_cash = False
+                            else:
+                                cash = cash + amount
+
+                            counter = counter + 1
+                            orders.append([open_time.time(), pay_cash, False])
+
+    else:
+        LOGGER.info(str(datetime.now()) + f' File not found: {pay_report}')
+
+    orders.sort(key=lambda x: x[0])
+    sum = int(cash + card)
+
+    if len(orders) > 0: mid = sum / len(orders)
+    return orders, sum, int(mid), cash, card
+
 def parse_poster(pay_report):
     orders = []
     card = 0
@@ -446,7 +483,7 @@ def create_report(file_path, orders, result, hours_difference):
                 bookmarks.append((int(time_sell - BEFORE_OPENED_CASH_SECONDS), 'WARNING. Cash : ' + str(order[0])))
                 order[2] = True
 
-    if len(no_workers.items) > 2:
+    if len(no_workers.items) > 1:
 
         if (no_workers.items[0]['begin'] / len(frames) < 0.01):
             bookmarks.append((int(no_workers.items[0]['end'] / FPS),
@@ -547,7 +584,7 @@ def parse_report(report_file, est_name):
     orders = []
     report_type = db.get_report_type(est_name)
     if report_type == "aiko":
-        return parse_aiko(report_file)
+        return parse_new_aiko(report_file)
     elif report_type == "poster":
         return parse_poster(report_file)
     elif report_type == '1c':
@@ -557,14 +594,17 @@ def parse_report(report_file, est_name):
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
+    orders, sum, mid, cash, card = parse_new_aiko('test_files/aiko_test.json')
+    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
     orders, sum, mid, cash, card  = parse_1с('test_files/1c.json')
-    frame_file = "test_files/10_2023-12-06_10-00-00.txt"
-    data = create_report(frame_file, orders,  frame_file + '.xspf', 10)
+    frame_file = "test_files/7_2023-12-23_08-00-00.txt"
+    data = create_report(frame_file, orders,  frame_file + '.xspf', 8)
     print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
     orders, sum, mid, cash, card = parse_poster('test_files/poster.json')
     print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
-    orders, sum, mid, cash, card = parse_aiko('test_files/aiko.json')
+    orders, sum, mid, cash, card = parse_aiko('test_files/test.json')
     print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    data = create_report("test_files/13_2023-12-08_08-00-00.txt", orders, frame_file + '.xspf', 8)
     #db = DB()
     frames_file = r'/Users/oleh/ar/3_2023-11-29_11-00-00.txt'
 
