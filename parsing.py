@@ -324,7 +324,11 @@ def parse_new_aiko(pay_report):
             for order_id, order_data in data.items():
                 if 'Кухня' in order_data : continue
                 open_time = datetime.strptime(order_data['open'], "%Y-%m-%d %H:%M:%S")
-                close_time = datetime.strptime(order_data['close'], "%Y-%m-%d %H:%M:%S.%f")
+                try:
+                    close_time = datetime.strptime(order_data['close'], "%Y-%m-%d %H:%M:%S.%f")
+                except:
+                    close_time = datetime.strptime(order_data['close'], "%Y-%m-%d %H:%M:%S")
+                    
                 if open_time is not None and close_time is not None:
                     for payment_method, amount in order_data['payments'].items():
                         if payment_method is not None and amount is not None:
