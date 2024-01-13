@@ -112,7 +112,7 @@ class OpenedCash:
             #events.append(Event(self.first, self.last, OPENEDCASH_NO_CLIENT))
 
 class NoWorkers:
-    MINLENGHT = 300 * 10 / 2
+    MINLENGHT = 600 * 10 / 2
     TRSHLD = 1 * 10 / 2
 
     def __init__(self):
