@@ -593,25 +593,26 @@ def parse_report(report_file, est_name):
         return parse_poster(report_file)
     elif report_type == '1c':
         return parse_1с(report_file)
-    return orders, 0, 0, 0
+    return orders, 0, 0, 0, 0
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
 
-    orders, sum, mid, cash, card = parse_new_aiko('test_files/aiko_test.json')
-    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
-    orders, sum, mid, cash, card  = parse_1с('test_files/1c.json')
-    frame_file = "test_files/7_2023-12-23_08-00-00.txt"
-    data = create_report(frame_file, orders,  frame_file + '.xspf', 8)
-    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
-    orders, sum, mid, cash, card = parse_poster('test_files/poster.json')
-    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
-    orders, sum, mid, cash, card = parse_aiko('test_files/test.json')
-    print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
-    data = create_report("test_files/13_2023-12-08_08-00-00.txt", orders, frame_file + '.xspf', 8)
+    #orders, sum, mid, cash, card = parse_new_aiko('test_files/aiko_test.json')
+    #print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    #orders, sum, mid, cash, card  = parse_1с('test_files/1c.json')
+    #frame_file = "test_files/7_2023-12-23_08-00-00.txt"
+    #data = create_report(frame_file, orders,  frame_file + '.xspf', 8)
+    #print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    #orders, sum, mid, cash, card = parse_poster('test_files/poster.json')
+    #print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    #orders, sum, mid, cash, card = parse_aiko('test_files/test.json')
+    #print(f"Количество заказов: {len(orders)} Общая сумма: {sum} Средний чек: {mid} Наличные: {cash} Карта: {card}")
+    #data = create_report("test_files/13_2023-12-08_08-00-00.txt", orders, frame_file + '.xspf', 8)
     #db = DB()
-    frames_file = r'/Users/oleh/ar/3_2023-11-29_11-00-00.txt'
-
-    data = create_report("test_files/10_2023-12-06_10-00-00.txt", orders, video_file[:-4] + '.xspf', 11)
+    orders, sum, mid, cash, card = parse_report('/Users/oleh/test/test.txt','baklagan')
+    frames_file = r'/Users/oleh/dev/rep/exp997/15_2024-01-25_07-00-00.txt'
+    orders = parse_new_aiko(r'/Users/oleh/dev/rep/exp997/15_2024-01-25_07-00-00.json')
+    data = create_report("test_files/10_2023-12-06_10-00-00.txt", orders, frames_file[:-4] + '.xspf', 7)
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/
