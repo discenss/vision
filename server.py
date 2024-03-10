@@ -154,10 +154,10 @@ def f(x, y):
         mid = 0
         cash = 0
         card = 0
-
+        extra = {}
         time_from_file = get_time_from_file(source_path)
         if db.get_report_type(est_name) != 'none':
-            orders, sum, mid, cash, card = parse_report(source_path[:-3] + 'json', est_name)
+            orders, sum, mid, cash, card, extra = parse_report(source_path[:-3] + 'json', est_name)
             print(time_from_file)
             if time_from_file is False:
                 raise ValueError("Ошибка получения времени из файла")
@@ -187,9 +187,15 @@ def f(x, y):
                 cash,
                 card
             )
+
+        extra_string = '\n'
+        if db.get_extra(est_name) and len(extra):
+            for i in db.get_extra(est_name).split(','):
+                if i.strip(' ') in extra:
+                    extra_string += i.strip(' ') + ' : ' + extra[i.strip(' ')] + '\n'
         users = db.get_users_list_for_est(est_name)
 
-        user_message = f"\n___________________\n📈 Звіт за дату: {converted_date}\n Заклад: {est_name}\n" + formatted_report
+        user_message = f"\n___________________\n📈 Звіт за дату: {converted_date}\n Заклад: {est_name}\n" + formatted_report + extra_string
 
         if debug is False:
             db.set_base_report(est_name, str(converted_date), generate_report_text(data))

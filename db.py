@@ -51,6 +51,15 @@ class DB():
         else:
             return None
 
+    def get_full_user_list(self):
+        self.cur.execute(f"SELECT * FROM users")
+        rows = self.cur.fetchall()
+        id_s = []
+        for row in rows:
+            id, name, login, role, password, count, telegram_id = row
+            id_s.append(telegram_id)
+        return id_s
+
     def get_user_name_by_id(self, name):
         self.cur.execute(f"SELECT user_id FROM users WHERE \"NAME\" = '{name}'")
         rows = self.cur.fetchall()
@@ -71,7 +80,7 @@ class DB():
         self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
-            id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
+            id, name, adress, passw, license_id, owner_id, report_type, path, date, extra = rows[0]
             return report_type
         else:
             return None
@@ -80,7 +89,7 @@ class DB():
         self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
-            id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
+            id, name, adress, passw, license_id, owner_id, report_type, path, date, extra = rows[0]
             return id
         else:
             return None
@@ -118,14 +127,14 @@ class DB():
         self.cur.execute(f'SELECT * FROM establishments WHERE "NAME" = \'{est_name}\'')
         rows = self.cur.fetchall()
         if len(rows) == 1:
-            id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
+            id, name, adress, passw, license_id, owner_id, report_type, path, date, extra = rows[0]
         else:
             return None
 
         self.cur.execute(f"SELECT * FROM LICENSE WHERE LICENSE_ID = '{license_id}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
-            desc, beg, end, name, price, lic_id = rows[0]
+            desc, name, price, lic_id = rows[0]
         else:
             return None
 
@@ -143,7 +152,7 @@ class DB():
         self.cur.execute(f"SELECT * FROM ESTABLISHMENTS WHERE \"NAME\" = '{est_name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
-            est_id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
+            est_id, name, adress, passw, license_id, owner_id, report_type, path, date, extra = rows[0]
         else:
             return "Название не найдено"
         if passw != pass_est:
@@ -192,7 +201,7 @@ class DB():
         self.cur.execute(f"SELECT * FROM establishments WHERE \"NAME\" = '{est_name}'")
         rows = self.cur.fetchall()
         if len(rows) == 1:
-            id, name, adress, passw, license_id, owner_id, report_type, path, date = rows[0]
+            id, name, adress, passw, license_id, owner_id, report_type, path, date, extra = rows[0]
         else:
             return "Название не найдено"
 
@@ -460,6 +469,13 @@ class DB():
                 temp_file.write(file_data.tobytes())
         os.rename(temp_file_name, temp_file_name + '.pt')
         return  temp_file_name + '.pt'
+
+    def get_extra(self, est_name):
+        self.cur.execute(f"SELECT  extra FROM ESTABLISHMENTS WHERE  \"NAME\" = '{est_name}'")
+        extra = self.cur.fetchall()
+        if len(extra) == 0:
+            return None
+        return extra[0][0]
 def main():
     db = DB()
 
