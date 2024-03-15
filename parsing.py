@@ -11,7 +11,7 @@ import os
 import time
 import datetime
 import json
-from db import DB
+from oko_db.db import DB
 from utils.general import LOGGER
 from datetime import timedelta, datetime, time
 
@@ -323,8 +323,8 @@ def parse_new_aiko(pay_report):
         with open(pay_report, 'r', encoding='utf-8') as f:
             data = json.load(f)
             if 'categories' in data:
-                if 'link_stuff' in data['categories'] : extra['link_stuff'] = data['categories']['link_stuff']
-                if 'link_sales' in data['categories']: extra['link_sales'] = data['categories']['link_sales']
+                if 'link_stuff' in data['categories'] : extra['Питание_штата'] = data['categories']['link_stuff']
+                if 'link_sales' in data['categories']: extra['Отчёт_по_продажам'] = data['categories']['link_sales']
             for order_id, order_data in data.items():
                 if 'Кухня' in order_data : continue
                 open_time = datetime.strptime(order_data['open'], "%Y-%m-%d %H:%M:%S")
@@ -619,8 +619,8 @@ if __name__ == '__main__':
     data = create_report("test_files/10_2023-12-06_10-00-00.txt", orders, frames_file[:-4] + '.xspf', 7)
 
     extra_string = ''
-    if db.get_extra('bulochkiarkadia') and len(extra):
-        for i in db.get_extra('bulochkiarkadia').split(','):
+    if db.get_est_extra_by_name('bulochkiarkadia') and len(extra):
+        for i in db.get_est_extra_by_name('bulochkiarkadia').split(','):
             if i.strip(' ') in extra:
                 extra_string += i.strip(' ') + ' : ' + extra[i.strip(' ')] + '\n'
     print()
