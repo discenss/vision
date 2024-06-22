@@ -6,7 +6,7 @@ import sys
 import datetime
 import argparse
 from parsing import create_report, parse_report
-from db import DB
+from oko_db.db import DB
 import telebot
 import re
 from utils.general import LOGGER
@@ -165,8 +165,11 @@ def f(x, y):
 
         data = create_report(frames_file, orders, source_path[:-4] + '.xspf', time_from_file.hour)
 
+        if data['away_periods'] == None:
+            away_periods_formatted = '\n'
+        else:
+            away_periods_formatted = "\n".join(data['away_periods'])
 
-        away_periods_formatted = "\n".join(data['away_periods'])
         activities_formatted = "\n".join(data['activities'])
         time_open = datetime.datetime.strptime(data['opening_time'], "%H:%M:%S")
         time_close = datetime.datetime.strptime(data['closing_time'], "%H:%M:%S")
