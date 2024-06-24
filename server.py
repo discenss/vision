@@ -165,7 +165,7 @@ def f(x, y):
 
         data = create_report(frames_file, orders, source_path[:-4] + '.xspf', time_from_file.hour)
 
-        if data['away_periods'] == None:
+        if data['away_periods'] is None:
             away_periods_formatted = '\n'
         else:
             away_periods_formatted = "\n".join(data['away_periods'])
