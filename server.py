@@ -165,10 +165,11 @@ def f(x, y):
 
         data = create_report(frames_file, orders, source_path[:-4] + '.xspf', time_from_file.hour)
 
-        if data['away_periods'] is None:
-            away_periods_formatted = '\n'
-        else:
+        try:
             away_periods_formatted = "\n".join(data['away_periods'])
+        except:
+            away_periods_formatted = '\n'
+            pass
 
         activities_formatted = "\n".join(data['activities'])
         time_open = datetime.datetime.strptime(data['opening_time'], "%H:%M:%S")
@@ -192,8 +193,8 @@ def f(x, y):
             )
 
         extra_string = '\n'
-        if db.get_extra(est_name) and len(extra):
-            for i in db.get_extra(est_name).split(','):
+        if db.get_est_extra_by_name(est_name) and len(extra):
+            for i in db.get_est_extra_by_name(est_name).split(','):
                 if i.strip(' ') in extra:
                     extra_string += i.strip(' ') + ' : ' + extra[i.strip(' ')] + '\n'
         users = db.get_users_list_for_est(est_name)
